@@ -107,7 +107,10 @@
     ?>
 
     <div class="container">
-        <h1 class="text-center">Booking for Date: <?php echo date('Y-m-d', strtotime($date)); ?></h1>
+        <div class="section-title">
+            <h2>Booking for Date</h2>
+            <h4><?php echo date('Y-m-d', strtotime($date)); ?></h4>
+        </div>
         <div class="row">
             <div class="col-md-12 col-12 mt-2">
                 <?php echo isset($msg) ? $msg : ""; ?>
@@ -145,7 +148,7 @@
                                 <table for="">Service Type</table>
                                 <select name="title" class="form-control" required>
                                     <option 1="">Research Consult</option>
-                                    <option="">Statistic Consult</option=>
+                                    <option="">Statistic Consult</option>
                                 </select>
                             </div>
                             <div class="form-group">

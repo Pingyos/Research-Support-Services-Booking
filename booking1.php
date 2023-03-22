@@ -14,6 +14,9 @@
     <!-- End Hero -->
 
     <main id="main">
+        <div class="section-title">
+            <h2>Research Consult & Statistic Consult</h2>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -221,10 +224,10 @@
                         $dayname = strtolower(date('l', strtotime($date)));
                         $eventNum = 0;
                         $today = $date == date('Y-m-d') ? "today" : "";
-                        if ($dayname == 'sunday' || $dayname == 'monday' || $dayname == 'thursday' || $dayname == 'friday' || $dayname == 'saturday') {
-                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad3'>Off</button>";
+                        if ($dayname == 'sunday' || $dayname == 'monday' || $dayname == 'tuesday'  || $dayname == 'friday') {
+                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad3'>N/A</button>";
                         } elseif ($date < date('Y-m-d')) {
-                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>N/A</button>";
+                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>Pass</button>";
                         } else {
                             $totalbookings = checkSlots($mysqli, $date);
                             if ($totalbookings == 3) {
