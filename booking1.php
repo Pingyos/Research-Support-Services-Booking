@@ -222,16 +222,16 @@
                         $eventNum = 0;
                         $today = $date == date('Y-m-d') ? "today" : "";
                         if ($dayname == 'sunday' || $dayname == 'monday' || $dayname == 'thursday' || $dayname == 'friday' || $dayname == 'saturday') {
-                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad3'>N/A</button>";
-                        } elseif ($date < date('Y-m-d')) { 
-                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>Pass</button>";
+                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad3'>Off</button>";
+                        } elseif ($date < date('Y-m-d')) {
+                            $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>N/A</button>";
                         } else {
                             $totalbookings = checkSlots($mysqli, $date);
-                            if ($totalbookings == 6) {
+                            if ($totalbookings == 3) {
                                 $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='#' class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>Full</a>";
                             } else {
-                                $availableslots = 6 - $totalbookings;
-                                $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='bookingtime.php?date=" . $date . "' class='col-md-6 col-12 btn btn-xs btn-primary keypad1'>Booking</a><smail><h7> $availableslots slots</h7></smail>";
+                                $availableslots = 3 - $totalbookings;
+                                $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='bookingtime1.php?date=" . $date . "' class='col-md-6 col-12 btn btn-xs btn-primary keypad1'>Booking</a><smail><h7> $availableslots slots</h7></smail>";
                             }
                         }
 
@@ -263,7 +263,7 @@
 
                 function checkSlots($mysqli, $date)
                 {
-                    $stmt = $mysqli->prepare("select * from booking where date = ?");
+                    $stmt = $mysqli->prepare("select * from booking1 where date = ?");
                     $stmt->bind_param('s', $date);
                     $totalbookings = 0;
                     if ($stmt->execute()) {

@@ -18,10 +18,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>title</th>
-                        <th>name</th>
-                        <th>timeslot</th>
-                        <th>date</th>
+                        <th>Title</th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -44,9 +44,9 @@
                                 $designation = $t1['designation'];
                                 $id = $t1['id'];
                                 if ($designation == 1) {
-                                    echo "<a  href=deactivate.php?id=" . $id . "><button type='button' class='btn btn-outline-danger'>Deactivate</button></a>";
+                                    echo "<a><button type='button' class='btn btn-outline-danger'>Deactivate</button></a>";
                                 } else if ($designation == 0) {
-                                    echo "<a href=activate.php?id=" . $id . "><button type='button' class='btn btn-outline-primary'>Activate</button></a>";
+                                    echo "<a><button type='button' class='btn btn-outline-primary'>Activate</button></a>";
                                 } ?> </td>
                         </tr>
 

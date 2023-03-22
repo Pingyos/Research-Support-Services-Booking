@@ -2,9 +2,10 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Lumia Bootstrap Template - Index</title>
+    <title>Research Support Services Booking</title>
     <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta name="keywords" content="Research Support Services Booking">
+
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">

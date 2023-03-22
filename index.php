@@ -7,43 +7,46 @@
     <?php require_once 'header.php'; ?>
 
     <!-- ======= Hero Section ======= -->
-    <section  class="d-flex flex-column justify-content-center align-items-center">
-       
+    <section class="d-flex flex-column justify-content-center align-items-center">
+
     </section><!-- End Hero -->
 
     <main id="main"></main>
 
-        <!-- ======= What We Do Section ======= -->
-        <section id="what-we-do" class="what-we-do">
-            <div class="container">
+    <!-- ======= What We Do Section ======= -->
+    <section id="what-we-do" class="what-we-do">
+        <div class="container">
 
-                <div class="section-title">
-                    <h2>Research Support Services Booking</h2>
-                    <p>Magnam dolores commodi suscipit consequatur ex aliquid</p>
+            <div class="section-title">
+                <h2>Research Support Services Booking</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6  align-items-stretch">
+                    <div class="icon-box">
+                        <div class="icon"><i class="bx bx-file"></i></div>
+                        <h4><a href="booking.php">Editor English Hours</a></h4>
+                        <p>(Mr.Michael Cote)</p>
+                    </div>
                 </div>
-                <div class="row">
-                    <?php
-                    require_once 'connection.php';
-                    $stmt = $conn->prepare("SELECT * FROM booking_header");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll();
-                    foreach ($result as $t1) {
-                    ?>
 
-                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                            <div class="icon-box">
-                                <div class="icon"><i class="bx bx-file"></i></div>
-                                <h4><a href="booking.php#?booking_id=<?= $t1['booking_id']; ?>"><?= $t1['booking_header']; ?></a></h4>
-                                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                            </div>
-                        </div>
+                <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-md-0">
+                    <div class="icon-box">
+                        <div class="icon"><i class="bx bx-file"></i></div>
+                        <h4><a href="booking1.php">Research Consult</a></h4>
+                        <p>(Dr.Patompong Khaw-on)</p>
+                    </div>
+                </div>
 
-                    <?php
-                    }
-                    ?>
+                <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <div class="icon"><i class="bx bx-file"></i></div>
+                        <h4><a href="booking1.php">Statistic Consult</a></h4>
+                        <p>(Dr.Patompong Khaw-on)</p>
+                    </div>
                 </div>
             </div>
-        </section><!-- End What We Do Section -->
+        </div>
+    </section><!-- End What We Do Section -->
 
 
     </main><!-- End #main -->

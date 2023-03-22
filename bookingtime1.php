@@ -18,7 +18,7 @@
     $mysqli = new mysqli('localhost', 'root', '', 'booking');
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
-        $stmt = $mysqli->prepare("select * from booking where date = ?");
+        $stmt = $mysqli->prepare("select * from booking1 where date = ?");
         $stmt->bind_param('s', $date);
         $bookings = array();
         if ($stmt->execute()) {
@@ -41,7 +41,7 @@
         $tel = $_POST['tel'];
         $timeslot = $_POST['timeslot'];
         $designation = $_POST['designation'];
-        $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
+        $stmt = $mysqli->prepare("select * from booking1 where date = ? AND timeslot=?");
         $stmt->bind_param('ss', $date, $timeslot);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
@@ -51,14 +51,14 @@
                   title: "booking failed",
                   text: "booking failed",
                   type: "success",
-                  timer: 2000,
+                  timer: 3000,
                   showConfirmButton: false
                 }, function(){
                   window.location.href = "booking.php";
                 });
               </script>';
             } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date) VALUES (?,?,?,?,?,?,?,?)");
+                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date) VALUES (?,?,?,?,?,?,?,?)");
                 $stmt->bind_param('ssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date);
                 $stmt->execute();
                 $msg = '<script>
@@ -66,7 +66,7 @@
                   title: "booking success",
                   text: "booking success",
                   type: "success",
-                  timer: 2000,
+                  timer: 3000,
                   showConfirmButton: false
                 }, function(){
                   window.location.href = "Check.php";
@@ -82,32 +82,21 @@
 
     $duration = 60;
     $cleanup = 0;
-    $start1 = "09:00";
-    $end1 = "12:00";
-    $start2 = "13:00";
-    $end2 = "16:00";
+    $start = "13:00";
+    $end = "16:00";
 
-    function timeslots($duration, $cleanup, $start1, $end1, $start2, $end2)
+
+    function timeslots($duration, $cleanup, $start, $end)
     {
-        $start1 = new DateTime("$start1");
-        $end1 = new DateTime("$end1");
-        $start2 = new DateTime("$start2");
-        $end2 = new DateTime("$end2");
+        $start = new DateTime("$start");
+        $end = new DateTime("$end");
         $interval = new DateInterval("PT" . $duration . "M");
         $cleanupInterval = new DateInterval("PT" . $cleanup . "M");
         $slots = array();
-        for ($intStart = $start1; $intStart < $end1; $intStart->add($interval)->add($cleanupInterval)) {
+        for ($intStart = $start; $intStart < $end; $intStart->add($interval)->add($cleanupInterval)) {
             $endPeriod = clone $intStart;
             $endPeriod->add($interval);
-            if ($endPeriod > $end1) {
-                break;
-            }
-            $slots[] = $intStart->format("H:iA") . "_" . $endPeriod->format("H:iA");
-        }
-        for ($intStart = $start2; $intStart < $end2; $intStart->add($interval)->add($cleanupInterval)) {
-            $endPeriod = clone $intStart;
-            $endPeriod->add($interval);
-            if ($endPeriod > $end2) {
+            if ($endPeriod > $end) {
                 break;
             }
             $slots[] = $intStart->format("H:iA") . "_" . $endPeriod->format("H:iA");
@@ -115,35 +104,26 @@
         return $slots;
     }
 
-
     ?>
 
     <div class="container">
+        <h1 class="text-center">Booking for Date: <?php echo date('Y-m-d', strtotime($date)); ?></h1>
         <div class="row">
-            <div class="section-title">
-                <h2>Booking for Date</h2>
-                <h4><?php echo date('Y-m-d', strtotime($date)); ?></h4>
+            <div class="col-md-12 col-12 mt-2">
+                <?php echo isset($msg) ? $msg : ""; ?>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-12 mt-2">
-                    <?php echo isset($msg) ? $msg : ""; ?>
+            <?php $timeslots = timeslots($duration, $cleanup, $start, $end,);
+            foreach ($timeslots as $ts) {
+            ?>
+                <div class="col-md-2 col-12 mt-2">
+                    <div class="form-group"></div>
+                    <?php if (in_array($ts, $bookings)) { ?>
+                        <button class="col-md- col-12 mt-2 btn btn-xs btn-primary keypad3"><?php echo $ts; ?></button><br>
+                    <?php } else { ?>
+                        <button class="col-md- col-12 mt-2 btn btn-primary keypad1 book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
+                    <?php } ?>
                 </div>
-                <?php $timeslots = timeslots($duration, $cleanup, $start1, $end1, $start2, $end2);
-                foreach ($timeslots as $ts) {
-                ?>
-                
-                    <div class="col-md-2 col-12 mt-2">
-                        <div class="form-group"></div>
-                        <?php if (in_array($ts, $bookings)) { ?>
-                            <button class="col-md- col-12 mt-2 btn btn-xs btn-primary keypad3"><?php echo $ts; ?></button><br>
-                        <?php } else { ?>
-                            <button class="col-md- col-12 mt-2 btn btn-primary keypad1 book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
-                        <?php } ?>
-                    </div>
-                <?php } ?>
-            </div>
-
-
+            <?php } ?>
         </div>
     </div>
 
@@ -164,7 +144,8 @@
                             <div class="form-group">
                                 <table for="">Service Type</table>
                                 <select name="title" class="form-control" required>
-                                    <option 1="">Editor English Hours</option>
+                                    <option 1="">Research Consult</option>
+                                    <option="">Statistic Consult</option=>
                                 </select>
                             </div>
                             <div class="form-group">
