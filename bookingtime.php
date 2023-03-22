@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
-<link href="assets/css/style.css" rel="stylesheet">
+ <link href="assets/css/style.css" rel="stylesheet">
 
 <body>
     <?php require_once 'header.php'; ?>
@@ -68,7 +68,7 @@
                   timer: 3000,
                   showConfirmButton: false
                 }, function(){
-                  window.location.href = "booking.php";
+                  window.location.href = "Check.php";
                 });
               </script>';
                 $bookings[] = $timeslot;
@@ -130,9 +130,9 @@
                     <div class="col-md-2 col-12 mt-2">
                         <div class="form-group"></div>
                         <?php if (in_array($ts, $bookings)) { ?>
-                            <button class="col-md- col-12 mt-2 btn btn-danger"><?php echo $ts; ?></button><br>
+                            <button class="col-md- col-12 mt-2 btn btn-xs btn-primary keypad3"><?php echo $ts; ?></button><br>
                         <?php } else { ?>
-                            <button class="col-md- col-12 mt-2 btn btn-success book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
+                            <button class="col-md- col-12 mt-2 btn btn-primary keypad1 book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
                         <?php } ?>
                     </div>
                 <?php } ?>

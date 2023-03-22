@@ -228,7 +228,7 @@
                         } else {
                             $totalbookings = checkSlots($mysqli, $date);
                             if ($totalbookings == 7) {
-                                $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='#' class='col-md-6 col-12 btn btn-xs btn-primary keypad1'>Full</a>";
+                                $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='#' class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>Full</a>";
                             } else {
                                 $availableslots = 7 - $totalbookings;
                                 $calendar .= "<td class='$today'><h4>$currentDay</h4> <a href='bookingtime.php?date=" . $date . "' class='col-md-6 col-12 btn btn-xs btn-primary keypad1'>Booking</a><smail><h7> $availableslots slots</h7></smail>";
