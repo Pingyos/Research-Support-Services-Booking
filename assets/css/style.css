@@ -1414,3 +1414,18 @@ section {
   color: #fff;
   text-decoration: none;
 }
+.keypad1 {
+  background-color: #3498DB;
+  color: #fff;
+  border-color: #3498DB;
+}
+.keypad2 {
+  background-color: #34495e;
+  color: #fff;
+  border-color: #34495e;
+}
+.keypad3 {
+  background-color: #e74c3c;
+  color: #fff;
+  border-color: #e74c3c;
+}

@@ -7,22 +7,18 @@
     <?php require_once 'header.php'; ?>
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-        <div class="container text-center text-md-left" data-aos="fade-up">
-            <h1>Welcome to <span>Lumia</span></h1>
-            <h2>We are team of talented designers making websites with Bootstrap</h2>
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
-        </div>
+    <section  class="d-flex flex-column justify-content-center align-items-center">
+       
     </section><!-- End Hero -->
 
-    <main id="main">
+    <main id="main"></main>
 
         <!-- ======= What We Do Section ======= -->
         <section id="what-we-do" class="what-we-do">
             <div class="container">
 
                 <div class="section-title">
-                    <h2>What We Do</h2>
+                    <h2>Research Support Services Booking</h2>
                     <p>Magnam dolores commodi suscipit consequatur ex aliquid</p>
                 </div>
                 <div class="row">
