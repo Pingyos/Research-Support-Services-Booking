@@ -21,5 +21,5 @@
 	}
 
 	// Go back to course-page.php
-	header('location: Check.php');
+	header('location: bookingtable.php');
 ?>
