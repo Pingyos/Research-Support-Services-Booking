@@ -13,16 +13,14 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
         </header>
         <div class="content">
-            <div class="animated fadeIn">
+            <div class="animated fadeIn"></div>
                 <div class="row">
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -35,10 +33,10 @@
                                             <th>#</th>
                                             <th>Title</th>
                                             <th>Name</th>
-                                            <th>Option</th>
                                             <th>Time</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>Data</th>
+                                            <th>Status</th>
+                                            <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,18 +52,38 @@
                                                 <td><?= $countrow ?></td>
                                                 <td><?= $t1['title']; ?></td>
                                                 <td><?= $t1['name']; ?></td>
-                                                <td><?= $t1['option_add']; ?></td>
-                                                <td><?= $t1['timeslot']; ?></td>
-                                                <td><?= $t1['date']; ?></td>
-                                                <td><?php
+                                                <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
+                                                <td><?= $t1['option_add']; ?> /
+                                                    <?php
+                                                    $designation = $t1['designation'];
+                                                    $option_add = $t1['option_add'];
+                                                    $id = $t1['id'];
+
+                                                    if ($designation == 1 && ($option_add != "Zoom-meeting")) {
+                                                        echo "-";
+                                                    } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
+                                                        echo "-</a>";
+                                                    } 
+                                                    
+                                                    else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
+                                                        echo "Room-222</a>";
+                                                    } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
+                                                        echo "ID-81859956261</a>";
+                                                    } ?>
+                                                    
+                                                </td>
+                                                <td>
+                                                    <?php
                                                     $designation = $t1['designation'];
                                                     $id = $t1['id'];
                                                     if ($designation == 1) {
-                                                        echo "<a  href=deactivate.php?id=" . $id . "><button type='button' class='btn btn-outline-danger'>Deactivate</button></a>";
+                                                        echo "<a  href=deactivate.php?id=" . $id . "><button type='button' class='btn btn-outline-danger'>waiting for confirmation</button></a>";
                                                     } else if ($designation == 0) {
-                                                        echo "<a href=activate.php?id=" . $id . "><button type='button' class='btn btn-outline-primary'>Activate</button></a>";
+                                                        echo "<a href=activate.php?id=" . $id . "><button type='button' class='btn btn-outline-primary'>booking confirmation</button></a>";
                                                     } ?>
+
                                                 </td>
+                                                <td><a href="CFbooking.php?id=<?= $t1['id']; ?>" class="btn btn-outline-success">View</a></td>
                                             </tr>
 
                                         <?php $countrow++;

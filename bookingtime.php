@@ -131,7 +131,7 @@
                 <?php $timeslots = timeslots($duration, $cleanup, $start1, $end1, $start2, $end2);
                 foreach ($timeslots as $ts) {
                 ?>
-                
+
                     <div class="col-md-2 col-12 mt-2">
                         <div class="form-group"></div>
                         <?php if (in_array($ts, $bookings)) { ?>
@@ -187,6 +187,7 @@
                                 <input required type="text" name="tel" class="form-control">
                             </div>
                             <input required type="text" name="designation" value="1" class="form-control" hidden>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">

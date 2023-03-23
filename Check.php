@@ -13,6 +13,10 @@
     </section>
     <!-- End Hero -->
     <div class="container">
+        <div class="section-title">
+            <h2>Research Support Services Booking</h2>
+            <p>BookingCheck</p>
+        </div>
         <div class="row">
             <table id="myTable" class="table table-striped table-bordered">
                 <thead>
@@ -21,8 +25,9 @@
                         <th>Title</th>
                         <th>Name</th>
                         <th>Time</th>
-                        <th>Date</th>
-                        <th>Actions</th>
+                        <th>Dat</th>
+                        <th>Status</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -38,16 +43,36 @@
                             <td><?= $countrow ?></td>
                             <td><?= $t1['title']; ?></td>
                             <td><?= $t1['name']; ?></td>
-                            <td><?= $t1['timeslot']; ?></td>
-                            <td><?= $t1['date']; ?></td>
-                            <td><?php
+                            <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
+                            <td><?= $t1['option_add']; ?> /
+                                <?php
+                                $designation = $t1['designation'];
+                                $option_add = $t1['option_add'];
+                                $id = $t1['id'];
+
+                                if ($designation == 1 && ($option_add != "Zoom-meeting")) {
+                                    echo "-";
+                                } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
+                                    echo "-</a>";
+                                } else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
+                                    echo "Room-222</a>";
+                                } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
+                                    echo "ID-81859956261</a>";
+                                } ?>
+
+                            </td>
+                            <td>
+                                <?php
                                 $designation = $t1['designation'];
                                 $id = $t1['id'];
                                 if ($designation == 1) {
-                                    echo "<a><button type='button' class='btn btn-outline-danger'>Deactivate</button></a>";
+                                    echo "<button type='button' class='btn btn-outline-danger'>waiting for confirmation</button></a>";
                                 } else if ($designation == 0) {
-                                    echo "<a><button type='button' class='btn btn-outline-primary'>Activate</button></a>";
-                                } ?> </td>
+                                    echo "<button type='button' class='btn btn-outline-primary'>booking confirmation</button></a>";
+                                } ?>
+
+                            </td>
+
                         </tr>
 
                     <?php $countrow++;
