@@ -39,37 +39,43 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="university" class="control-label mb-1">Name</label>
-                                    <input type="text" name="university"  value="<?= $row['name']; ?>" class="form-control">
+                                    <input type="text" name="university" value="<?= $row['name']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ranking" class="control-label mb-1">Title</label>
-                                    <input type="text" name="ranking"  value="<?= $row['title']; ?>" class="form-control">
+                                    <input type="text" name="ranking" value="<?= $row['title']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="university" class="control-label mb-1">Option</label>
-                                    <input type="text" name="university"  value="<?= $row['option_add']; ?>" class="form-control">
+                                    <input type="text" name="university" value="<?= $row['option_add']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ranking" class="control-label mb-1">Timeslot</label>
-                                    <input type="text" name="ranking"  value="<?= $row['timeslot']; ?>" class="form-control">
+                                    <input type="text" name="ranking" value="<?= $row['timeslot']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="university" class="control-label mb-1">Email</label>
-                                    <input type="text" name="university"  value="<?= $row['email']; ?>" class="form-control">
+                                    <input type="text" name="university" value="<?= $row['email']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ranking" class="control-label mb-1">Tel</label>
-                                    <input type="text" name="ranking"  value="<?= $row['tel']; ?>" class="form-control">
+                                    <input type="text" name="ranking" value="<?= $row['tel']; ?>" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="comments" class="control-label mb-1">Comments</label>
+                                    <input type="text" name="comments" value="<?= $row['comments']; ?>" class="form-control">
                                 </div>
                             </div>
                         </div>

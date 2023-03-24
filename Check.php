@@ -22,10 +22,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Name</th>
-                        <th>Time</th>
-                        <th>Dat</th>
+                        <th>Service Type</th>
+                        <th>Booked by</th>
+                        <th>Date</th>
+                        <th>Services Comments</th>
+                        <th>Meeting Option</th>
                         <th>Status</th>
 
                     </tr>
@@ -44,11 +45,12 @@
                             <td><?= $t1['title']; ?></td>
                             <td><?= $t1['name']; ?></td>
                             <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                            <td><?= $t1['option_add']; ?> /
+                            <td><?= $t1['comments']; ?></td>
+                            <td>
                                 <?php
                                 $designation = $t1['designation'];
                                 $option_add = $t1['option_add'];
-                                $id = $t1['id'];
+                                $booking_id = $t1['booking_id'];
 
                                 if ($designation == 1 && ($option_add != "Zoom-meeting")) {
                                     echo "-";
@@ -64,7 +66,7 @@
                             <td>
                                 <?php
                                 $designation = $t1['designation'];
-                                $id = $t1['id'];
+                                $booking_id = $t1['booking_id'];
                                 if ($designation == 1) {
                                     echo "<button type='button' class='btn btn-outline-danger'>waiting for confirmation</button></a>";
                                 } else if ($designation == 0) {

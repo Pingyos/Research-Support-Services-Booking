@@ -15,71 +15,7 @@
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'booking');
-    if (isset($_GET['date'])) {
-        $date = $_GET['date'];
-        $stmt = $mysqli->prepare("select * from booking1 where date = ?");
-        $stmt->bind_param('s', $date);
-        $bookings = array();
-        if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $bookings[] = $row['timeslot'];
-                }
-
-                $stmt->close();
-            }
-        }
-    }
-
-    if (isset($_POST['submit'])) {
-        $name = $_POST['name'];
-        $title = $_POST['title'];
-        $option_add = $_POST['option_add'];
-        $email = $_POST['email'];
-        $tel = $_POST['tel'];
-        $timeslot = $_POST['timeslot'];
-        $designation = $_POST['designation'];
-        $stmt = $mysqli->prepare("select * from booking1 where date = ? AND timeslot=?");
-        $stmt->bind_param('ss', $date, $timeslot);
-        if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $msg = '<script>
-                swal({
-                  title: "booking failed",
-                  text: "booking failed",
-                  type: "success",
-                  timer: 3000,
-                  showConfirmButton: false
-                }, function(){
-                  window.location.href = "booking.php";
-                });
-              </script>';
-            } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date) VALUES (?,?,?,?,?,?,?,?)");
-                $stmt->bind_param('ssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date);
-                $stmt->execute();
-                $msg = '<script>
-                swal({
-                  title: "booking success",
-                  text: "booking success",
-                  type: "success",
-                  timer: 3000,
-                  showConfirmButton: false
-                }, function(){
-                  window.location.href = "Check.php";
-                });
-              </script>';
-                $bookings[] = $timeslot;
-                $stmt->close();
-                $mysqli->close();
-            }
-        }
-    }
-
-
+    require_once 'booking_db.php';
     $duration = 60;
     $cleanup = 0;
     $start = "13:00";
@@ -147,13 +83,15 @@
                             <div class="form-group">
                                 <table for="">Service Type</table>
                                 <select name="title" class="form-control" required>
+                                    <option 0=""></option>
                                     <option 1="">Research Consult</option>
-                                    <option="">Statistic Consult</option>
+                                    <option 2="">Statistic Consult</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <table for="">Meeting Option</table>
                                 <select name="option_add" class="form-control" required>
+                                    <option 0=""></option>
                                     <option 1="">Zoom meeting</option>
                                     <option 2="">Face-to-face meeting</option>
                                 </select>
@@ -170,14 +108,21 @@
                                 <table for="">Tel</table>
                                 <input required type="text" name="tel" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <table for="">Comments</table>
+                                <input required type="text" name="comments" class="form-control">
+                            </div>
+
                             <input required type="text" name="designation" value="1" class="form-control" hidden>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary keypad3" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="btn btn-primary keypad1">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
