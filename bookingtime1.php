@@ -15,7 +15,111 @@
     <!-- End Hero -->
 
     <?php
-    require_once 'booking_db.php';
+    $mysqli = new mysqli('localhost', 'root', '', 'booking');
+    if (isset($_GET['date'])) {
+        $date = $_GET['date'];
+        $stmt = $mysqli->prepare("select * from booking1 where date = ?");
+        $stmt->bind_param('s', $date);
+        $bookings = array();
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $bookings[] = $row['timeslot'];
+                }
+
+                $stmt->close();
+            }
+        }
+    }
+
+    if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $title = $_POST['title'];
+        $option_add = $_POST['option_add'];
+        $email = $_POST['email'];
+        $tel = $_POST['tel'];
+        $timeslot = $_POST['timeslot'];
+        $designation = $_POST['designation'];
+        $comments = $_POST['comments'];
+        $instructor = $_POST['instructor'];
+        $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
+        $stmt->bind_param('ss', $date, $timeslot);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $msg = '<script>
+                    swal({
+                      title: "booking failed",
+                      text: "booking failed",
+                      type: "success",
+                      timer: 2000,
+                      showConfirmButton: false
+                    }, function(){
+                      window.location.href = "booking.php";
+                    });
+                  </script>';
+            } else {
+                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,comments,instructor) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $comments, $instructor);
+                $stmt->execute();
+                $msg = '<script>
+                    swal({
+                      title: "booking success",
+                      text: "booking success",
+                      type: "success",
+                      timer: 2000,
+                      showConfirmButton: false
+                    }, function(){
+                      window.location.href = "Check.php";
+                    });
+                  </script>';
+                $bookings[] = $timeslot;
+                $stmt->close();
+                $mysqli->close();
+
+                $sToken = ["NBN1u0cBaJM5OwgAM8QEqId5cETSPi1mK0ySDZ62y1z"];
+                $sMessage = "Update Booking\r\n";
+                $sMessage .=  $instructor . "\n";
+                $sMessage .= "\n";
+                $sMessage .= "Date: " . $date . "\n";
+                $sMessage .= "Time: " . $timeslot . "\n";
+                $sMessage .= "\n";
+                $sMessage .= "Service Type: \n";
+                $sMessage .= $title . "\n";
+                $sMessage .= "\n";
+                $sMessage .= "Meeting Option: \n";
+                $sMessage .= $option_add . "\n";
+                $sMessage .= "\n";
+                $sMessage .= "Booked by: " . $name . "\n";
+                $sMessage .= "E-mail: " . $email . "\n";
+                $sMessage .= "Tel: " . $tel . "\n";
+                $sMessage .= "\n";
+                $sMessage .= "https://app.nurse.cmu.ac.th/booking/admin\n";
+
+                function notify_message($sMessage, $Token)
+                {
+                    $chOne = curl_init();
+                    curl_setopt($chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify");
+                    curl_setopt($chOne, CURLOPT_SSL_VERIFYHOST, 0);
+                    curl_setopt($chOne, CURLOPT_SSL_VERIFYPEER, 0);
+                    curl_setopt($chOne, CURLOPT_POST, 1);
+                    curl_setopt($chOne, CURLOPT_POSTFIELDS, "message=" . $sMessage);
+                    $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer ' . $Token . '',);
+                    curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers);
+                    curl_setopt($chOne, CURLOPT_RETURNTRANSFER, 1);
+                    $result = curl_exec($chOne);
+                    if (curl_error($chOne)) {
+                        echo 'error:' . curl_error($chOne);
+                    }
+                    curl_close($chOne);
+                }
+                foreach ($sToken as $Token) {
+                    notify_message($sMessage, $Token);
+                }
+            }
+        }
+    }
     $duration = 60;
     $cleanup = 0;
     $start = "13:00";
@@ -88,6 +192,7 @@
                                     <option 2="">Statistic Consult</option>
                                 </select>
                             </div>
+                            <input required type="text" name="instructor" value="(Dr.Patompong Khaw-on)" class="form-control" hidden>
                             <div class="form-group">
                                 <table for="">Meeting Option</table>
                                 <select name="option_add" class="form-control" required>
