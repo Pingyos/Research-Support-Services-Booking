@@ -197,7 +197,7 @@
                                 <table for="">Meeting Option</table>
                                 <select name="option_add" class="form-control" required>
                                     <option 0=""></option>
-                                    <option 1="">Zoom meeting</option>
+                                    <option 1="">Zoom-meeting</option>
                                     <option 2="">Face-to-face meeting</option>
                                 </select>
                             </div>

@@ -34,7 +34,7 @@
                 <tbody>
                     <?php
                     require_once 'connection.php';
-                    $stmt = $conn->prepare("SELECT* FROM booking ");
+                    $stmt = $conn->prepare("SELECT * FROM booking INNER JOIN booking1 ON (booking_id = booking1_id)");
                     $stmt->execute();
                     $result = $stmt->fetchAll();
                     $countrow = 1;

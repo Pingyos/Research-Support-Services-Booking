@@ -10,7 +10,7 @@
                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                        <ul class="sub-menu children dropdown-menu">
                            <li><i class="fa fa-table"></i><a href="bookingtable.php">Mr.Michael Cote</a></li>
-                           <li><i class="fa fa-table"></i><a href="tables-data.html">Dr.Patompong Khawon</a></li>
+                           <li><i class="fa fa-table"></i><a href="bookingtable1.php">Dr.Patompong Khawon</a></li>
                        </ul>
                    </li>
                    <li class="menu-item-has-children dropdown">
