@@ -198,39 +198,57 @@
                     <div class="col-md-12">
                         <form action="" method="post">
                             <div class="form-group">
-                                <table for="">Date</table>
-                                <input required type="text" readonly name="timeslot" id="timeslot" class="form-control">
+                                <div class="mb-2">
+                                    <table for="">Date</table>
+                                    <input required type="text" readonly name="timeslot" id="timeslot" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <table for="">Service Type</table>
-                                <select name="title" class="form-control" required>
-                                    <option 1="">Editor English Hours</option>
-                                </select>
+                                <div class="mb-2">
+                                    <table for="">Service Type</table>
+                                    <select name="title" class="form-control" required>
+                                        <option 1="">Editor English Hours</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <table for="">Manuscript Title</table>
+                                <input required type="text" name="ResearchTitle" class="form-control">
                             </div>
                             <input required type="text" name="instructor" value="(Mr.Michael Cote)" class="form-control" hidden>
                             <div class="form-group">
-                                <table for="">Meeting Option</table>
-                                <select name="option_add" class="form-control" required>
-                                    <option 0=""></option>
-                                    <option 1="">Zoom-meeting</option>
-                                    <option 2="">Face-to-face meeting</option>
-                                </select>
+                                <div class="mb-2">
+                                    <table for="">Meeting Option</table>
+                                    <select name="option_add" class="form-control" required>
+                                        <option 0=""></option>
+                                        <option 1="">Zoom-meeting</option>
+                                        <option 2="">Face-to-face meeting</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <table for="">Name</table>
-                                <input required type="text" name="name" class="form-control">
+                                <div class="mb-2">
+                                    <table for="">Name</table>
+                                    <input required type="text" name="name" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <table for="">Email</table>
-                                <input required type="email" name="email" class="form-control">
+                                <div class="mb-2">
+                                    <table for="">Email</table>
+                                    <input required type="email" name="email" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <table for="">Tel</table>
-                                <input required type="text" name="tel" class="form-control">
+                                <div class="mb-2">
+                                    <table for="">Tel</table>
+                                    <input required type="text" name="tel" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <table for="">Comments</table>
-                                <input required type="text" name="comments" class="form-control">
+                                <div class="mb-2">
+                                    <table for="">Comments</table>
+                                    <input required type="text" name="comments" class="form-control">
+                                </div>
                             </div>
 
                             <input required type="text" name="designation" value="1" class="form-control" hidden>

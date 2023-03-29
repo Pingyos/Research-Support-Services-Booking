@@ -192,6 +192,10 @@
                                     <option 2="">Statistic Consult</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <table for="">ResearchTitle</table>
+                                <input required type="text" name="ResearchTitle" class="form-control">
+                            </div>
                             <input required type="text" name="instructor" value="(Dr.Patompong Khaw-on)" class="form-control" hidden>
                             <div class="form-group">
                                 <table for="">Meeting Option</table>
