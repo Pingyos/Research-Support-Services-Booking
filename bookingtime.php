@@ -238,9 +238,9 @@ require_once 'head.php';
                                 <div class="mb-2">
                                     <table for="">Meeting Option</table>
                                     <select name="option_add" class="form-control" required>
-                                        <option 0=""></option>
-                                        <option 1="">Zoom-meeting</option>
-                                        <option 2="">Face-to-face meeting</option>
+                                        <option value=""></option>
+                                        <option value="Zoom meeting">Zoom meeting</option>
+                                        <option value="Face-to-face meeting">Face-to-face meeting</option>
                                     </select>
                                 </div>
                             </div>
@@ -273,9 +273,9 @@ require_once 'head.php';
                         </form>
                     </div>
                     <!-- <?php echo '<pre>';
-                    print_r($_POST);
-                    echo '</pre>';
-                    ?> -->
+                            print_r($_POST);
+                            echo '</pre>';
+                            ?> -->
                 </div>
             </div>
         </div>
