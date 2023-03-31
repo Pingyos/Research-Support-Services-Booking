@@ -59,7 +59,7 @@ require_once 'head.php';
         $timeslot = $_POST['timeslot'];
         $designation = $_POST['designation'];
         $instructor = $_POST['instructor'];
-        $ResearchTitle = $_POST['ResearchTitle'];
+        $manutitle = $_POST['manutitle'];
         $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
         $stmt->bind_param('ss', $date, $timeslot);
         if ($stmt->execute()) {
@@ -77,8 +77,8 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,ResearchTitle) VALUES (?,?,?,?,?,?,?,?,?,?)");
-                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $ResearchTitle);
+                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
                 $stmt->execute();
                 $msg = '<script>
                     swal({
@@ -94,8 +94,8 @@ require_once 'head.php';
                 $bookings[] = $timeslot;
                 $stmt->close();
                 $mysqli->close();
-
-                $sToken = ["LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z"];
+                // LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z
+                $sToken = [""];
                 $sMessage = "Update Booking\r\n";
                 $sMessage .=  $instructor . "\n";
                 $sMessage .= "\n";
@@ -103,7 +103,7 @@ require_once 'head.php';
                 $sMessage .= "Time: " . $timeslot . "\n";
                 $sMessage .= "\n";
                 $sMessage .= "Service Type: " . $title . "\n";
-                $sMessage .= "Manuscript Title: " . $ResearchTitle . "\n";
+                $sMessage .= "Manuscript Title: " . $manutitle . "\n";
                 $sMessage .= "\n";
                 $sMessage .= "Meeting Option: \n";
                 $sMessage .= $option_add . "\n";
@@ -231,7 +231,7 @@ require_once 'head.php';
                             </div>
                             <div class="form-group">
                                 <table for="">Manuscript Title</table>
-                                <input required type="text" name="ResearchTitle" class="form-control">
+                                <input required type="text" name="manutitle" class="form-control">
                             </div>
                             <input required type="text" name="instructor" value="(Mr.Michael Cote)" class="form-control" hidden>
                             <div class="form-group">

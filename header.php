@@ -3,12 +3,6 @@
     // Check if login information is available in session variable
     if (isset($_SESSION['login_info'])) {
         $json = $_SESSION['login_info'];
-
-        // Display login information
-        // echo "Name:" . $json['firstname_EN'] . "<br>";
-        // echo "Surname:" . $json['lastname_EN'] . "<br>";
-        // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-        // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
     } else {
         echo "You are not logged in.";
     }
