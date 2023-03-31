@@ -36,75 +36,70 @@
                             }
                         } //isset
                         ?>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="name" class="control-label mb-1">Name</label>
-                                    <input type="text" name="name" value="<?= $row['name']; ?>" class="form-control" readonly>
+                        <form action="CF_db.php" method="POST">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="name" class="control-label mb-1">Name</label>
+                                        <input type="text" name="name" value="<?= $row['name']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="ranking" class="control-label mb-1">Title</label>
+                                        <input type="text" name="ranking" value="<?= $row['title']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="timeslot" class="control-label mb-1">Timeslot</label>
+                                        <input type="text" name="timeslot" value="<?= $row['timeslot']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="date" class="control-label mb-1">Email</label>
+                                        <input type="text" name="date" value="<?= $row['date']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="email" class="control-label mb-1">Email</label>
+                                        <input type="text" name="email" value="<?= $row['email']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="tel" class="control-label mb-1">Tel</label>
+                                        <input type="text" name="tel" value="<?= $row['tel']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="instructor" class="control-label mb-1">Instructor</label>
+                                        <input type="text" name="instructor" value="<?= $row['instructor']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="manutitle" class="control-label mb-1">manutitle</label>
+                                        <input type="text" name="manutitle" value="<?= $row['manutitle']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="option_add" class="control-label mb-1">Option</label>
+                                        <input type="text" name="option_add" value="<?= $row['option_add']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="designation" class="control-label mb-1">designation</label>
+                                        <input type="text" name="designation" value="<?= $row['designation']; ?>" class="form-control" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="ranking" class="control-label mb-1">Title</label>
-                                    <input type="text" name="ranking" value="<?= $row['title']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="timeslot" class="control-label mb-1">Timeslot</label>
-                                    <input type="text" name="timeslot" value="<?= $row['timeslot']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="date" class="control-label mb-1">Email</label>
-                                    <input type="text" name="date" value="<?= $row['date']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="email" class="control-label mb-1">Email</label>
-                                    <input type="text" name="email" value="<?= $row['email']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="tel" class="control-label mb-1">Tel</label>
-                                    <input type="text" name="tel" value="<?= $row['tel']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="instructor" class="control-label mb-1">Instructor</label>
-                                    <input type="text" name="instructor" value="<?= $row['instructor']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="manutitle" class="control-label mb-1">manutitle</label>
-                                    <input type="text" name="manutitle" value="<?= $row['manutitle']; ?>" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="option_add" class="control-label mb-1">Option</label>
-                                    <select name="option_add" class="form-control" required>
-                                        <option value="1">"<?= $row['option_add']; ?>"</option>
-                                        <option value="Zoom meeting/ID-81859956261">Zoom meeting/ID-81859956261</option>
-                                        <option value="Face-to-face meeting/Room-222">Face-to-face meeting/Room-222</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="designation" class="control-label mb-1">designation</label>
-                                    <input type="text" name="designation" value="<?= $row['designation']; ?>" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="booking_id" value="<?= $row['booking_id']; ?>">
-                        <button type="submit" class="btn btn-primary">แก้ไขข้อมูล</button>
+                        </form>
                     </div>
                 </div>
             </div>
