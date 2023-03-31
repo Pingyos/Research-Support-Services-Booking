@@ -1,7 +1,7 @@
 <?php
 
 // Connect to database
-$con = mysqli_connect("localhost", "root", "", "booking");
+$con = mysqli_connect("localhost", "edonation", "edonate@FON", "booking");
 
 // Check if id is set or not if true toggle,
 // else simply go back to the page

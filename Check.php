@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require_once 'head.php'; ?>
+<?php
+// Start session
+session_start();
+
+// Check if login information is available in session variable
+if (isset($_SESSION['login_info'])) {
+    $json = $_SESSION['login_info'];
+
+    // Display login information
+    // echo "Name:" . $json['firstname_EN'] . "<br>";
+    // echo "Surname:" . $json['lastname_EN'] . "<br>";
+    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+} else {
+    echo "You are not logged in.";
+}
+
+require_once 'head.php';
+?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
@@ -25,7 +43,6 @@
                         <th>Service Type</th>
                         <th>Booked by</th>
                         <th>Date</th>
-                        <th>Services Comments</th>
                         <th>Meeting Option</th>
                         <th>Status</th>
 
@@ -41,8 +58,8 @@
                     name,
                     timeslot,
                     date,
-                    comments,
                     designation,
+                    ResearchTitle,
                     option_add,
                     booking_id
                 FROM booking
@@ -54,8 +71,8 @@
                     name,
                     timeslot,
                     date,
-                    comments,
                     designation,
+                    ResearchTitle,
                     option_add,
                     booking_id
                 FROM booking1
@@ -69,10 +86,9 @@
                     ?>
                         <tr>
                             <td><?= $countrow ?></td>
-                            <td><?= $t1['title']; ?></td>
+                            <td><?= $t1['title']; ?>/<?= $t1['ResearchTitle']; ?></td>
                             <td><?= $t1['name']; ?></td>
                             <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                            <td><?= $t1['comments']; ?></td>
                             <td>
                                 <?php
                                 $designation = $t1['designation'];

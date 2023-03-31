@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+// Start session
+session_start();
 
-<?php require_once 'head.php'; ?>
+// Check if login information is available in session variable
+if (isset($_SESSION['login_info'])) {
+    $json = $_SESSION['login_info'];
+
+    // Display login information
+    // echo "Name:" . $json['firstname_EN'] . "<br>";
+    // echo "Surname:" . $json['lastname_EN'] . "<br>";
+    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+} else {
+    echo "You are not logged in.";
+}
+
+require_once 'head.php';
+?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
@@ -15,7 +32,7 @@
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'booking');
+    $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
         $stmt = $mysqli->prepare("select * from booking where date = ?");
@@ -41,8 +58,8 @@
         $tel = $_POST['tel'];
         $timeslot = $_POST['timeslot'];
         $designation = $_POST['designation'];
-        $comments = $_POST['comments'];
         $instructor = $_POST['instructor'];
+        $ResearchTitle = $_POST['ResearchTitle'];
         $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
         $stmt->bind_param('ss', $date, $timeslot);
         if ($stmt->execute()) {
@@ -60,8 +77,8 @@
                     });
                   </script>';
             } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,comments,instructor) VALUES (?,?,?,?,?,?,?,?,?,?)");
-                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $comments, $instructor);
+                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,ResearchTitle) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $ResearchTitle);
                 $stmt->execute();
                 $msg = '<script>
                     swal({
@@ -78,15 +95,15 @@
                 $stmt->close();
                 $mysqli->close();
 
-                $sToken = ["NBN1u0cBaJM5OwgAM8QEqId5cETSPi1mK0ySDZ62y1z"];
+                $sToken = ["LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z"];
                 $sMessage = "Update Booking\r\n";
                 $sMessage .=  $instructor . "\n";
                 $sMessage .= "\n";
                 $sMessage .= "Date: " . $date . "\n";
                 $sMessage .= "Time: " . $timeslot . "\n";
                 $sMessage .= "\n";
-                $sMessage .= "Service Type: \n";
-                $sMessage .= $title . "\n";
+                $sMessage .= "Service Type: " . $title . "\n";
+                $sMessage .= "Manuscript Title: " . $ResearchTitle . "\n";
                 $sMessage .= "\n";
                 $sMessage .= "Meeting Option: \n";
                 $sMessage .= $option_add . "\n";
@@ -94,8 +111,8 @@
                 $sMessage .= "Booked by: " . $name . "\n";
                 $sMessage .= "E-mail: " . $email . "\n";
                 $sMessage .= "Tel: " . $tel . "\n";
-                $sMessage .= "\n";
-                $sMessage .= "https://app.nurse.cmu.ac.th/booking/admin\n";
+                // $sMessage .= "\n";
+                // $sMessage .= "https://app.nurse.cmu.ac.th/booking/admin\n";
 
                 function notify_message($sMessage, $Token)
                 {
@@ -120,6 +137,7 @@
             }
         }
     }
+
     $duration = 60;
     $cleanup = 0;
     $start1 = "09:00";
@@ -229,28 +247,22 @@
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Name</table>
-                                    <input required type="text" name="name" class="form-control">
+                                    <input readonly type="text" name="name" value="<?php echo $json['firstname_EN']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="mb-2">
-                                    <table for="">Email</table>
-                                    <input required type="email" name="email" class="form-control">
+                                    <label for="">Email</label>
+                                    <input readonly type="email" name="email" class="form-control" value="<?php echo $json['cmuitaccount']; ?>">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Tel</table>
                                     <input required type="text" name="tel" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="mb-2">
-                                    <table for="">Comments</table>
-                                    <input required type="text" name="comments" class="form-control">
-                                </div>
-                            </div>
-
                             <input required type="text" name="designation" value="1" class="form-control" hidden>
 
 
@@ -260,6 +272,10 @@
                             </div>
                         </form>
                     </div>
+                    <!-- <?php echo '<pre>';
+                    print_r($_POST);
+                    echo '</pre>';
+                    ?> -->
                 </div>
             </div>
         </div>

@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+// Start session
+session_start();
 
-<?php require_once 'head.php'; ?>
+// Check if login information is available in session variable
+if (isset($_SESSION['login_info'])) {
+    $json = $_SESSION['login_info'];
+
+    // Display login information
+    // echo "Name:" . $json['firstname_EN'] . "<br>";
+    // echo "Surname:" . $json['lastname_EN'] . "<br>";
+    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+} else {
+    echo "You are not logged in.";
+}
+
+require_once 'head.php';
+?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <link href="assets/css/style.css" rel="stylesheet">
 
@@ -137,7 +154,7 @@
                 <?php
                 function build_calendar($month, $year)
                 {
-                    $mysqli = new mysqli('localhost', 'root', '', 'booking');
+                    $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
 
 
 

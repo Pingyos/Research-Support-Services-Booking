@@ -11,7 +11,6 @@ $oauth_auth_url = "https://oauth.cmu.ac.th/v1/Authorize.aspx";
 $oauth_token_url = "https://oauth.cmu.ac.th/v1/GetToken.aspx";
 $wsapi_get_basicinfo_url = "https://misapi.cmu.ac.th/cmuitaccount/v1/api/cmuitaccount/basicinfo";
 
-
 if (isset($_GET['error']) != null) {
     echo "error: " . $_GET['error'];
     echo "<br>";
@@ -68,17 +67,23 @@ if (isset($_GET['error']) != null) {
             //"itaccounttype_TH": "บุคลากร",
             //"itaccounttype_EN": "MIS Employee"
             // ===========================================
-
+            session_start();
+            $_SESSION['login_info'] = $json;
             // Show Result Text
             echo "Name:" . $json['firstname_EN'] . "<br>";
             echo "Surname:" . $json['lastname_EN'] . "<br>";
             echo "organization:" . $json['organization_name_EN'] . "<br>";
+            echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+            header("Location: index.php");
+            exit;
         }
     } else {
         header("Location:" . $oauth_auth_url . "?response_type=code&client_id=$client_id&redirect_uri=$redirect_uri&scope=$oauth_scope");
         exit;
     }
 }
+
+
 
 
 // Get access_token to call webservices api
