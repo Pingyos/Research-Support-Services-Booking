@@ -77,9 +77,31 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                // First database (booking)
+                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
                 $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
                 $stmt->execute();
+
+                // Second database (bookingAll)
+                $mysqli2 = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                if ($mysqli2->connect_errno) {
+                    echo "Failed to connect to second database: " . $mysqli2->connect_error;
+                    exit();
+                }
+
+                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
+                if (!$stmt2) {
+                    echo "Prepare failed: (" . $mysqli2->errno . ") " . $mysqli2->error;
+                    exit();
+                }
+
+                $stmt2->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                if (!$stmt2->execute()) {
+                    echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
+                    exit();
+                }
+
+
                 $msg = '<script>
                     swal({
                       title: "booking success",
@@ -233,7 +255,7 @@ require_once 'head.php';
                                 <table for="">Manuscript Title</table>
                                 <input required type="text" name="manutitle" class="form-control">
                             </div>
-                            <input required type="text" name="instructor" value="(Mr.Michael Cote)" class="form-control" hidden>
+                            <input required type="text" name="instructor" value="Mr.Michael Cote" class="form-control" hidden>
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Meeting Option</table>
@@ -247,7 +269,7 @@ require_once 'head.php';
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Name</table>
-                                    <input readonly type="text" name="name" value="<?php echo $json['firstname_EN']; ?>" class="form-control">
+                                    <input readonly type="text" name="name" value="<?php echo $json['firstname_EN'] . ' ' . $json['lastname_EN']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">

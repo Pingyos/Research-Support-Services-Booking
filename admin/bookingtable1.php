@@ -34,16 +34,15 @@
                                         <th>Service Type</th>
                                         <th>Booked by</th>
                                         <th>Date</th>
-                                        <th>Services Comments</th>
-                                        <th>Meeting Option</th>
+                                        <th>View data </th>
+                                        <th>Option </th>
                                         <th>Status</th>
-                                        <th>Option</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     require_once 'connection.php';
-                                    $stmt = $conn->prepare("SELECT* FROM booking1");
+                                    $stmt = $conn->prepare("SELECT* FROM bookingall ");
                                     $stmt->execute();
                                     $result = $stmt->fetchAll();
                                     $countrow = 1;
@@ -54,8 +53,7 @@
                                             <td><?= $t1['title']; ?></td>
                                             <td><?= $t1['name']; ?></td>
                                             <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                                            <td><?= $t1['comments']; ?></td>
-                                            <td><?= $t1['option_add']; ?> /
+                                            <td><?= $t1['option_add']; ?>
                                                 <?php
                                                 $designation = $t1['designation'];
                                                 $option_add = $t1['option_add'];
@@ -72,20 +70,18 @@
                                                 } ?>
 
                                             </td>
-                                            <td>
-                                                <?php
-                                                $designation = $t1['designation'];
-                                                $booking_id = $t1['booking_id'];
-                                                if ($designation == 1) {
-                                                    echo "<a  href=deactivate1.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>waiting for confirmation</button></a>";
-                                                } else if ($designation == 0) {
-                                                    echo "<a href=activate1.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>booking confirmation</button></a>";
-                                                } ?>
-
+                                            <td><a href="CFbooking1.php?booking_id=<?= $t1['booking_id']; ?>" class="btn btn-outline-success">View</a></td>
+                                            <td> <?php
+                                                    $designation = $t1['designation'];
+                                                    $booking_id = $t1['booking_id'];
+                                                    if ($designation == 1) {
+                                                        echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
+                                                    } else if ($designation == 0) {
+                                                        echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
+                                                    } ?>
                                             </td>
-                                            <td><a href="CFbooking.php?id=<?= $t1['booking_id']; ?>" class="btn btn-outline-success">View</a></td>
-                                        </tr>
 
+                                        </tr>
                                     <?php $countrow++;
                                     }
                                     ?>

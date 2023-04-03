@@ -41,7 +41,7 @@ require_once 'head.php';
     $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
-        $stmt = $mysqli->prepare("select * from booking where date = ?");
+        $stmt = $mysqli->prepare("select * from booking1 where date = ?");
         $stmt->bind_param('s', $date);
         $bookings = array();
         if ($stmt->execute()) {
@@ -83,9 +83,28 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
                 $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
                 $stmt->execute();
+
+                // Second database (bookingAll)
+                $mysqli2 = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                if ($mysqli2->connect_errno) {
+                    echo "Failed to connect to second database: " . $mysqli2->connect_error;
+                    exit();
+                }
+
+                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
+                if (!$stmt2) {
+                    echo "Prepare failed: (" . $mysqli2->errno . ") " . $mysqli2->error;
+                    exit();
+                }
+
+                $stmt2->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                if (!$stmt2->execute()) {
+                    echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
+                    exit();
+                }
                 $msg = '<script>
                     swal({
                       title: "booking success",
@@ -223,21 +242,21 @@ require_once 'head.php';
                                 <table for="">ResearchTitle</table>
                                 <input required type="text" name="manutitle" class="form-control">
                             </div>
-                            <input required type="text" name="instructor" value="(Dr.Patompong Khaw-on)" class="form-control" hidden>
+                            <input required type="text" name="instructor" value="(Dr.Patompong Khaw-on" class="form-control" hidden>
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Meeting Option</table>
                                     <select name="option_add" class="form-control" required>
-                                        <option 0=""></option>
-                                        <option 1="">Zoom-meeting</option>
-                                        <option 2="">Face-to-face meeting</option>
+                                        <option value=""></option>
+                                        <option value="Zoom meeting">Zoom meeting</option>
+                                        <option value="Face-to-face meeting">Face-to-face meeting</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Name</table>
-                                    <input readonly type="text" name="name" value="<?php echo $json['firstname_EN']; ?>" class="form-control">
+                                    <input readonly type="text" name="name" value="<?php echo $json['firstname_EN'] . ' ' . $json['lastname_EN']; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">

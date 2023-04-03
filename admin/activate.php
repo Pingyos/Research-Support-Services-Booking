@@ -1,7 +1,7 @@
 <?php
 
 	// Connect to database
-	$con=mysqli_connect("localhost","root","","booking");
+	$con=mysqli_connect("localhost","edonation","edonate@FON","booking");
 
 	// Check if id is set or not if true toggle,
 	// else simply go back to the page
@@ -13,7 +13,7 @@
 
 		// SQL query that sets the status
 		// to 1 to indicate activation.
-		$sql="UPDATE `booking` SET
+		$sql="UPDATE `bookingall` SET
 			`designation`= 1 WHERE booking_id='$booking_id'";
 
 		// Execute the query

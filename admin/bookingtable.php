@@ -35,23 +35,43 @@
                                         <th>Booked by</th>
                                         <th>Date</th>
                                         <th>View data </th>
+                                        <th>Option </th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     require_once 'connection.php';
-                                    $stmt = $conn->prepare("SELECT* FROM booking ");
-                                    $stmt->execute();
+                                    $instructor = 'Mr.Michael-Coate';
+                                    $stmt = $conn->prepare("SELECT * FROM bookingall WHERE Instructor = ?");
+                                    $stmt->execute([$instructor]); // passing the parameter to execute method
                                     $result = $stmt->fetchAll();
-                                    $countrow = 1;
+                                    $counter = 1;
                                     foreach ($result as $t1) {
+                                        // code to validate each row
                                     ?>
                                         <tr>
                                             <td><?= $countrow ?></td>
                                             <td><?= $t1['title']; ?></td>
                                             <td><?= $t1['name']; ?></td>
                                             <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
+                                            <td><?= $t1['option_add']; ?>
+                                                <?php
+                                                $designation = $t1['designation'];
+                                                $option_add = $t1['option_add'];
+                                                $booking_id = $t1['booking_id'];
+
+                                                if ($designation == 1 && ($option_add != "Zoom-meeting")) {
+                                                    echo "-";
+                                                } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
+                                                    echo "-</a>";
+                                                } else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
+                                                    echo "Room-222</a>";
+                                                } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
+                                                    echo "ID-81859956261</a>";
+                                                } ?>
+
+                                            </td>
                                             <td><a href="CFbooking.php?booking_id=<?= $t1['booking_id']; ?>" class="btn btn-outline-success">View</a></td>
                                             <td> <?php
                                                     $designation = $t1['designation'];
@@ -60,7 +80,8 @@
                                                         echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
                                                     } else if ($designation == 0) {
                                                         echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
-                                                    } ?></td>
+                                                    } ?>
+                                            </td>
 
                                         </tr>
                                     <?php $countrow++;
