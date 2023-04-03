@@ -33,14 +33,14 @@
                                     <tbody>
                                         <?php
                                         require_once 'connection.php';
-                                        $stmt = $conn->prepare("SELECT * FROM bookingall WHERE instructor = 'Mr-Michael-Cote'");
+                                        $stmt = $conn->prepare("SELECT * FROM bookingall WHERE instructor = 'Dr-Patompong-Khaw-on'");
                                         $stmt->execute();
                                         $result = $stmt->fetchAll();
                                         $countrow = 1;
                                         foreach ($result as $t1) {
                                         ?>
                                             <tr>
-                                                <td><?= $countrow ?></td>
+                                                <td><?= $countrow ?></td>   
                                                 <td><?= $t1['title']; ?></td>
                                                 <td><?= $t1['name']; ?></td>
                                                 <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
@@ -68,9 +68,9 @@
                                                         $designation = $t1['designation'];
                                                         $booking_id = $t1['booking_id'];
                                                         if ($designation == 1) {
-                                                            echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
+                                                            echo "<a  href=deactivate1.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
                                                         } else if ($designation == 0) {
-                                                            echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
+                                                            echo "<a href=activate1.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
                                                         } ?>
                                                 </td>
 

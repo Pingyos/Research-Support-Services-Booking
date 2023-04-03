@@ -12,7 +12,7 @@
                 <div class="row">
                     <!-- totaU -->
                     <?php
-                    require_once 'connect.php';
+                    require_once 'connection.php';
                     $stmt = $conn->prepare("SELECT COUNT(*) AS totaU FROM bookingall");
                     $stmt->execute();
                     $result = $stmt->fetch();
@@ -43,7 +43,7 @@
                     <!-- totaU -->
                     <!-- totaC -->
                     <?php
-                    require_once 'connect.php';
+                    require_once 'connection.php';
                     $stmt = $conn->prepare("SELECT COUNT(*) AS totaC FROM bookingall");
                     $stmt->execute();
                     $result = $stmt->fetch();
@@ -74,7 +74,7 @@
                     <!-- totaC -->
                     <!-- totaA -->
                     <?php
-                    require_once 'connect.php';
+                    require_once 'connection.php';
                     $stmt = $conn->prepare("SELECT COUNT(*) AS totaA FROM bookingall");
                     $stmt->execute();
                     $result = $stmt->fetch();
@@ -105,7 +105,7 @@
                     <!-- totaA -->
                     <!-- totaR -->
                     <?php
-                    require_once 'connect.php';
+                    require_once 'connection.php';
                     $stmt = $conn->prepare("SELECT COUNT(*) AS totaR FROM bookingall");
                     $stmt->execute();
                     $result = $stmt->fetch();
