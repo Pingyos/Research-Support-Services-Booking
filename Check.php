@@ -28,6 +28,7 @@ require_once 'head.php';
         <div class="section-title">
             <h2>Research Support Services Booking</h2>
             <p>BookingCheck</p>
+
         </div>
         <div class="row">
             <table id="myTable" class="table table-striped table-bordered">
@@ -46,7 +47,7 @@ require_once 'head.php';
                     <?php
                     require_once 'connection.php';
                     $email = $_SESSION['login_info']['cmuitaccount'];
-                    $stmt = $conn->prepare("SELECT * FROM bookingall WHERE email = ?");
+                    $stmt = $conn->prepare("SELECT * FROM bookingall WHERE email = ? ORDER BY dateCreate DESC");
                     $stmt->execute([$email]);
                     $result = $stmt->fetchAll();
                     $countrow = 1;
@@ -67,15 +68,16 @@ require_once 'head.php';
                                 if ($designation == 1 && ($option_add != "Zoom-meeting")) {
                                     echo "-";
                                 } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
-                                    echo "-</a>";
+                                    echo "-";
                                 } else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
-                                    echo "Room-222</a>";
+                                    echo "Room-2223";
                                 } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
-                                    echo "ID-81859956261</a>";
+                                    echo "ID-81859956261";
                                 } ?>
                             </td>
-                            <td><a data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">View</a></td>
-
+                            <td>
+                                <button <a href="?booking_id=<?= $t1['booking_id']; ?>" type="button" class="btn btn-outline-success book" data-timeslot="<?= $t1['timeslot'] ?>">View</button>
+                            </td>
                             <td>
                                 <?php
                                 $designation = $t1['designation'];
@@ -91,26 +93,63 @@ require_once 'head.php';
                     }
                     ?>
                 </tbody>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+            </table>
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class=" modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Data Check</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <table for="">Date</table>
+                                            <input type="text" readonly name="timeslot" id="timeslot" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <table for="">Service Type</table>
+                                            <input required type="text" name="tel" value="<?= $t1['title']; ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <table for="">ResearchTitle</table>
+                                        <input type="text" name="manutitle" value="<?= $t1['manutitle']; ?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <table for="">Meeting Option</table>
+                                            <input required type="text" name="tel" value="<?= $t1['option_add']; ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <table for="">Name</table>
+                                            <input readonly type="text" name="name" value="<?= $t1['name']; ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label for="">Email</label>
+                                            <input readonly type="email" name="email" class="form-control" value="<?= $t1['email']; ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="mb-2">
+                                            <table for="">Tel</table>
+                                            <input required type="text" name="tel" value="<?= $t1['tel']; ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </table>
+            </div>
         </div>
     </div>
 
@@ -119,16 +158,15 @@ require_once 'head.php';
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <?php require_once 'script.php'; ?>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
-    let table = new DataTable('#myTable');
-</script>
-<script>
-    $('#myModal').on('shown.bs.modal', function() {
-        $('#myModal').trigger('focus')
-    })
+    $(".book").click(function() {
+        var timeslot = $(this).attr('data-timeslot');
+        $("#slot").html(timeslot);
+        $("#timeslot").val(timeslot);
+        $("#myModal").modal('show');
+    });
 </script>
 
 </html>

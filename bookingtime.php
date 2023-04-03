@@ -255,14 +255,14 @@ require_once 'head.php';
                                 <table for="">Manuscript Title</table>
                                 <input required type="text" name="manutitle" class="form-control">
                             </div>
-                            <input required type="text" name="instructor" value="Mr.Michael Cote" class="form-control" hidden>
+                            <input required type="text" name="instructor" value="Mr-Michael-Cote" class="form-control" hidden>
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Meeting Option</table>
                                     <select name="option_add" class="form-control" required>
                                         <option value=""></option>
-                                        <option value="Zoom meeting">Zoom meeting</option>
-                                        <option value="Face-to-face meeting">Face-to-face meeting</option>
+                                        <option value="Zoom meeting">Zoom-meeting</option>
+                                        <option value="Face-to-face meeting">Face-to-face-meeting</option>
                                     </select>
                                 </div>
                             </div>
