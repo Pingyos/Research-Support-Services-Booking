@@ -57,7 +57,23 @@ require_once 'head.php';
                             <td><?= $t1['manutitle']; ?></td>
                             <td><?= $t1['name']; ?></td>
                             <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                            <td><?= $t1['option_add']; ?></td>
+                            <td>
+                                <?php
+                                $designation = $t1['designation'];
+                                $option_add = $t1['option_add'];
+                                $booking_id = $t1['booking_id'];
+
+                                if ($designation == 1 && ($option_add != "Zoom-meeting")) {
+                                    echo "-";
+                                } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
+                                    echo "-</a>";
+                                } else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
+                                    echo "Room-222</a>";
+                                } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
+                                    echo "ID-81859956261</a>";
+                                } ?>
+
+                            </td>
                         </tr>
 
                     <?php $countrow++;

@@ -34,6 +34,7 @@
                                         <th>Service Type</th>
                                         <th>Booked by</th>
                                         <th>Date</th>
+                                        <th>View data </th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -56,9 +57,9 @@
                                                     $designation = $t1['designation'];
                                                     $booking_id = $t1['booking_id'];
                                                     if ($designation == 1) {
-                                                        echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Deactivate</button></a>";
+                                                        echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
                                                     } else if ($designation == 0) {
-                                                        echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>Activate</button></a>";
+                                                        echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
                                                     } ?></td>
 
                                         </tr>
