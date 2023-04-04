@@ -59,7 +59,6 @@
                                                     } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
                                                         echo "ID-81859956261";
                                                     } ?>
-
                                                 </td>
                                                 <td>
                                                     <button <a href="?booking_id=<?= $t1['booking_id']; ?>" type="button" class="btn btn-outline-success book" data-timeslot="<?= $t1['timeslot'] ?>">View</button>

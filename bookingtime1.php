@@ -83,12 +83,15 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
+                $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking1');
+                $mysqli->set_charset('utf8');
                 $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
                 $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
                 $stmt->execute();
 
                 // Second database (bookingAll)
                 $mysqli2 = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                $mysqli2->set_charset('utf8');
                 if ($mysqli2->connect_errno) {
                     echo "Failed to connect to second database: " . $mysqli2->connect_error;
                     exit();
@@ -105,6 +108,7 @@ require_once 'head.php';
                     echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
                     exit();
                 }
+
                 $msg = '<script>
                     swal({
                       title: "booking success",
@@ -120,7 +124,7 @@ require_once 'head.php';
                 $stmt->close();
                 $mysqli->close();
                 // LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z
-                $sToken = [""];
+                $sToken = ["LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z"];
                 $sMessage = "Update Booking\r\n";
                 $sMessage .=  $instructor . "\n";
                 $sMessage .= "\n";
@@ -136,8 +140,8 @@ require_once 'head.php';
                 $sMessage .= "Booked by: " . $name . "\n";
                 $sMessage .= "E-mail: " . $email . "\n";
                 $sMessage .= "Tel: " . $tel . "\n";
-                // $sMessage .= "\n";
-                // $sMessage .= "https://app.nurse.cmu.ac.th/booking/admin\n";
+                $sMessage .= "\n";
+                $sMessage .= "https://cmu.to/eWQ0l";
 
                 function notify_message($sMessage, $Token)
                 {
@@ -248,8 +252,8 @@ require_once 'head.php';
                                     <table for="">Meeting Option</table>
                                     <select name="option_add" class="form-control" required>
                                         <option value=""></option>
-                                        <option value="Zoom meeting">Zoom-meeting</option>
-                                        <option value="Face-to-face meeting">Face-to-face-meeting</option>
+                                        <option value="Zoom-meeting">Zoom meeting</option>
+                                        <option value="Face-to-face meeting">Face to face meeting</option>
                                     </select>
                                 </div>
                             </div>
