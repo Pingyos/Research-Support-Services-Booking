@@ -12,10 +12,11 @@
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <a href="calendar.php" class="btn btn-success">calendar</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
