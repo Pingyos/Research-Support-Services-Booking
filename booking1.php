@@ -160,7 +160,7 @@ require_once 'head.php';
 
 
                     // Create array containing abbreviations of days of week.
-                    $daysOfWeek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    $daysOfWeek = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday');
 
                     // What is the first day of the month in question?
                     $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
@@ -242,7 +242,7 @@ require_once 'head.php';
                         $dayname = strtolower(date('l', strtotime($date)));
                         $eventNum = 0;
                         $today = $date == date('Y-m-d') ? "today" : "";
-                        if ($dayname == 'sunday' || $dayname == 'monday' || $dayname == 'tuesday'  || $dayname == 'friday') {
+                        if ($dayname == 'monday' || $dayname == 'thursday' || $dayname == 'saturday' || $dayname == 'sunday') {
                             $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad3'>N/A</button>";
                         } elseif ($date < date('Y-m-d')) {
                             $calendar .= "<td><h4>$currentDay</h4> <button class='col-md-6 col-12 btn btn-xs btn-primary keypad2'>Pass</button>";
