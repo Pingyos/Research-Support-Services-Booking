@@ -2,21 +2,21 @@
 <html lang="en">
 
 <?php
-// Start session
-session_start();
+// // Start session
+// session_start();
 
-// Check if login information is available in session variable
-if (isset($_SESSION['login_info'])) {
-    $json = $_SESSION['login_info'];
+// // Check if login information is available in session variable
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
 
-    // Display login information
-    // echo "Name:" . $json['firstname_EN'] . "<br>";
-    // echo "Surname:" . $json['lastname_EN'] . "<br>";
-    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
-} else {
-    echo "You are not logged in.";
-}
+//     // Display login information
+//     // echo "Name:" . $json['firstname_EN'] . "<br>";
+//     // echo "Surname:" . $json['lastname_EN'] . "<br>";
+//     // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+//     // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+// } else {
+//     echo "You are not logged in.";
+// }
 
 require_once 'head.php';
 ?>
@@ -155,7 +155,7 @@ require_once 'head.php';
                 <?php
                 function build_calendar($month, $year)
                 {
-                    $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                    $mysqli = new mysqli('localhost', 'root', '', 'booking');
 
 
 

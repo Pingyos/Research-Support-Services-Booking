@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-// Start session
-session_start();
+// // Start session
+// session_start();
 
-// Check if login information is available in session variable
-if (isset($_SESSION['login_info'])) {
-    $json = $_SESSION['login_info'];
+// // Check if login information is available in session variable
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
 
-    // Display login information
-    // echo "Name:" . $json['firstname_EN'] . "<br>";
-    // echo "Surname:" . $json['lastname_EN'] . "<br>";
-    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
-} else {
-    echo "You are not logged in.";
-}
+//     // Display login information
+//     // echo "Name:" . $json['firstname_EN'] . "<br>";
+//     // echo "Surname:" . $json['lastname_EN'] . "<br>";
+//     // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+//     // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+// } else {
+//     echo "You are not logged in.";
+// }
 
 require_once 'head.php';
 ?>
@@ -32,7 +32,7 @@ require_once 'head.php';
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+    $mysqli = new mysqli('localhost', 'root', '', 'booking');
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
         $stmt = $mysqli->prepare("select * from booking where date = ?");
@@ -57,7 +57,8 @@ require_once 'head.php';
         $email = $_POST['email'];
         $tel = $_POST['tel'];
         $timeslot = $_POST['timeslot'];
-        $designation = $_POST['designation'];
+        $service = $_POST['service'];
+        $status = $_POST['status'];
         $instructor = $_POST['instructor'];
         $manutitle = $_POST['manutitle'];
         $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
@@ -78,27 +79,27 @@ require_once 'head.php';
                   </script>';
             } else {
                 // First database (booking)
-                $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                $mysqli = new mysqli('localhost', 'root', '', 'booking');
                 $mysqli->set_charset('utf8');
-                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
-                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,date,service,status,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param('sssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $date, $service, $status, $instructor, $manutitle);
                 $stmt->execute();
 
                 // Second database (bookingAll)
-                $mysqli2 = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                $mysqli2 = new mysqli('localhost', 'root', '', 'booking');
                 $mysqli2->set_charset('utf8');
                 if ($mysqli2->connect_errno) {
                     echo "Failed to connect to second database: " . $mysqli2->connect_error;
                     exit();
                 }
 
-                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
+                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,date,service,status,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                 if (!$stmt2) {
                     echo "Prepare failed: (" . $mysqli2->errno . ") " . $mysqli2->error;
                     exit();
                 }
 
-                $stmt2->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                $stmt2->bind_param('sssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $date, $service, $status, $instructor, $manutitle);
                 if (!$stmt2->execute()) {
                     echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
                     exit();
@@ -289,7 +290,8 @@ require_once 'head.php';
                                     <input required type="text" name="tel" class="form-control">
                                 </div>
                             </div>
-                            <input required type="text" name="designation" value="1" class="form-control" hidden>
+                            <input required type="text" name="service" value="Choose service" class="form-control" hidden>
+                            <input required type="text" name="status" value="Waiting for confirmation" class="form-control" hidden>
 
 
                             <div class="modal-footer">

@@ -1,11 +1,11 @@
     <!-- ======= Header ======= -->
     <?php
-    // Check if login information is available in session variable
-    if (isset($_SESSION['login_info'])) {
-        $json = $_SESSION['login_info'];
-    } else {
-        echo "You are not logged in.";
-    }
+    // // Check if login information is available in session variable
+    // if (isset($_SESSION['login_info'])) {
+    //     $json = $_SESSION['login_info'];
+    // } else {
+    //     echo "You are not logged in.";
+    // }
     ?>
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">

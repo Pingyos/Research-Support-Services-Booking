@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-// Start session
-session_start();
+// // Start session
+// session_start();
 
-// Check if login information is available in session variable
-if (isset($_SESSION['login_info'])) {
-    $json = $_SESSION['login_info'];
+// // Check if login information is available in session variable
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
 
-    // Display login information
-    // echo "Name:" . $json['firstname_EN'] . "<br>";
-    // echo "Surname:" . $json['lastname_EN'] . "<br>";
-    // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-    // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
-} else {
-    echo "You are not logged in.";
-}
+//     // Display login information
+//     // echo "Name:" . $json['firstname_EN'] . "<br>";
+//     // echo "Surname:" . $json['lastname_EN'] . "<br>";
+//     // echo "organisation:" . $json['organization_name_EN'] . "<br>";
+//     // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
+// } else {
+//     echo "You are not logged in.";
+// }
 
 require_once 'head.php';
 ?>
@@ -38,7 +38,7 @@ require_once 'head.php';
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+    $mysqli = new mysqli('localhost', 'root', '', 'booking');
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
         $stmt = $mysqli->prepare("select * from booking1 where date = ?");
@@ -83,14 +83,14 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                $mysqli = new mysqli('localhost', 'root', '', 'booking');
                 $mysqli->set_charset('utf8');
                 $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
                 $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
                 $stmt->execute();
 
                 // Second database (bookingAll)
-                $mysqli2 = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
+                $mysqli2 = new mysqli('localhost', 'root', '', 'booking');
                 $mysqli2->set_charset('utf8');
                 if ($mysqli2->connect_errno) {
                     echo "Failed to connect to second database: " . $mysqli2->connect_error;
