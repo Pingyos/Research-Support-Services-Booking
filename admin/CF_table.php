@@ -1,72 +1,56 @@
 <?php
-// Assuming you have established a database connection
+// If the values are sent from the form
+if (
+  isset($_POST['service'])
+  && isset($_POST['status'])
+  && isset($_POST['booking_id'])
+) {
+  // Database connection file
+  require_once 'connection.php';
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form values
-    $timeslot = $_POST['timeslot'];
-    $tel = $_POST['tel']; // Change the input name to something unique for service type
-    $manutitle = $_POST['manutitle'];
-    $meetingOption = $_POST['tel']; // Change the input name to something unique for meeting option
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $tel = $_POST['tel'];
-    $status = $_POST['status'];
-    $service = $_POST['service'];
+  // Declare variables to get values from the form
+  $booking_id = $_POST['booking_id'];
+  $status = $_POST['status'];
+  $service = $_POST['service'];
 
-    // Update the database
-    $query = "UPDATE bookingall SET 
-                timeslot = '$timeslot', 
-                serviceType = '$serviceType', 
-                researchTitle = '$researchTitle', 
-                meetingOption = '$meetingOption', 
-                name = '$name', 
-                email = '$email', 
-                tel = '$tel', 
-                status = '$status', 
-                roomId = '$roomId' 
-              WHERE id = $booking_id"; // Replace $bookingId with the ID of the record you want to update
+  // SQL update
+  $stmt = $conn->prepare("UPDATE bookingall SET status=:status, service=:service WHERE booking_id=:booking_id");
+  $stmt->bindParam(':booking_id', $booking_id, PDO::PARAM_INT);
+  $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+  $stmt->bindParam(':service', $service, PDO::PARAM_STR);
+  $stmt->execute();
 
-    // Execute the query
-    $result = mysqli_query($connection, $query);
+  // Sweet Alert
+  echo '
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
 
-    // Check if the update was successful
-    if ($result) {
-        // Show success message using SweetAlert
-        echo '
-        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
-        <script>
-          swal({
-            title: "Add Data Success",
-            text: "success",
-            type: "success",
-            timer: 2000,
-            showConfirmButton: false
-          }, function(){
-            window.location.href = "date_u.php";
-          });
-        </script>';
-    } else {
-        // Show failure message using SweetAlert
-        echo '
-        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
-        <script>
-          swal({
-            title: "Add Data Fail",
-            text: "Add data fail",
-            type: "error",
-            timer: 2000,
-            showConfirmButton: false
-          }, function(){
-            window.location.href = "bookingtable.php";
-          });
-        </script>';
-    }
+  if ($stmt->rowCount() >= 0) {
 
-    // Close the database connection
-    mysqli_close($connection);
-}
+    echo '<script>
+        swal({
+          title: "Add Data Success",
+          text: "success",
+          type: "success",
+          timer: 2000,
+          showConfirmButton: false
+        }, function(){
+          window.location = "bookingtable.php";
+        });
+      </script>';
+  } else {
+    echo '<script>
+        swal({
+          title: "Add data fail",
+          text: "Add data fail",
+          type: "success",
+          timer: 2000,
+          showConfirmButton: false
+        }, function(){
+          window.location.href = "bookingtable.php";
+        });
+      </script>';
+  }
+  $conn = null; //close connect db
+} //isset

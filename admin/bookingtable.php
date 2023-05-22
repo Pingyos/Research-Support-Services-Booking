@@ -18,14 +18,13 @@
                                 <strong class="card-title">Data Table</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered" data-toggle="modal" data-target="#exampleModal">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Service Type</th>
                                             <th>Booked by</th>
                                             <th>Date</th>
-                                            <th>View data </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,10 +40,7 @@
                                                 <td><?= $countrow ?></td>
                                                 <td><?= $t1['title']; ?></td>
                                                 <td><?= $t1['name']; ?></td>
-                                                <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                                                <td>
-                                                    <button <a href="?booking_id=<?= $t1['booking_id']; ?>" type="button" class="btn btn-outline-success book" data-timeslot="<?= $t1['timeslot'] ?>">View</button>
-                                                </td>
+                                                <td><?= $t1['timeslot']; ?></td>
                                             </tr>
                                         <?php $countrow++;
                                         }
@@ -58,20 +54,26 @@
             </div>
         </div>
     </div>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="col-12 col-lg-12">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Data Check</h5>
-                    </div>
-                    <div class="modal-body">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document"> <!-- Add 'modal-lg' class for larger modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3 class="text-center">University</h3>
+                        </div>
+                        <hr>
                         <form action="" method="POST" role="form">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="timeslot">Date</label>
-                                        <input type="text" readonly name="timeslot" id="timeslot" class="form-control" value="<?= $t1['timeslot']; ?>">
+                                        <label for="manutitle">Research Title</label>
+                                        <input type="text" name="manutitle" value="<?= $t1['manutitle']; ?>" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -82,8 +84,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="manutitle">Research Title</label>
-                                        <input type="text" name="manutitle" value="<?= $t1['manutitle']; ?>" class="form-control" readonly>
+                                        <label for="timeslot">Date</label>
+                                        <input type="text" name="timeslot" class="form-control" value="<?= $t1['timeslot']; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -110,16 +112,23 @@
                                         <input type="text" name="tel" value="<?= $t1['tel']; ?>" class="form-control" readonly>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="instructor">Instructor</label>
+                                        <input type="text" name="instructor" value="<?= $t1['instructor']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
                                 <div class="col-6">
-                                    <div class="has-warning form-group">
+                                    <div class="has-warning-form-group">
                                         <label for="status" class="form-control-label">Status</label>
-                                        <select required name="status" id="status" class="is-valid form-control-success form-control">
+                                        <select name="status" id="status" class="is-valid form-control-success form-control" required>
                                             <option value="<?= $t1['status']; ?>"><?= $t1['status']; ?></option>
-                                            <option value="1">Option #1</option>
-                                            <option value="2">Option #2</option>
+                                            <option value="Waiting for confirmation">Waiting for confirmation</option>
+                                            <option value="Confirmed">Confirmed</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="has-warning form-group">
                                         <label for="service" class="form-control-label">Room/ID-zoom</label>
@@ -128,18 +137,25 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary keypad1">Submit</button>
+                                        <button type="submit" class="btn btn-primary keypad1">Confirm</button>
                                         <button type="button" class="btn btn-secondary keypad3" data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>
+                                <input type="hidden" name="booking_id" value="<?= $t1['booking_id']; ?>">
                             </div>
+                            <?php echo '<pre>';
+                            print_r($_POST);
+                            echo '</pre>';
+                            ?>
                         </form>
+                        <!-- <?php require_once 'CF_table.php'; ?> -->
                     </div>
-                    <?php require_once 'CF_table.php'; ?>
                 </div>
             </div>
         </div>
     </div>
+
+
     </div>
 
     <!-- Scripts -->
@@ -166,15 +182,13 @@
         });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script>
-        $(".book").click(function() {
-            var timeslot = $(this).attr('data-timeslot');
-            $("#slot").html(timeslot);
-            $("#timeslot").val(timeslot);
-            $("#myModal").modal('show');
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#exampleModal').trigger('focus');
         });
     </script>
+
 
 </body>
 
