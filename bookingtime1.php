@@ -83,7 +83,7 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking1');
+                $mysqli = new mysqli('localhost', 'edonation', 'edonate@FON', 'booking');
                 $mysqli->set_charset('utf8');
                 $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
                 $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);

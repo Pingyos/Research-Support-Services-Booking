@@ -159,7 +159,7 @@ require_once 'head.php';
 
 
                     // Create array containing abbreviations of days of week.
-                    $daysOfWeek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    $daysOfWeek = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday');
 
                     // What is the first day of the month in question?
                     $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);

@@ -12,11 +12,10 @@
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="calendar.php" class="btn btn-success">calendar</a>
+                                <strong class="card-title">Data Table</strong>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -68,9 +67,9 @@
                                                         $designation = $t1['designation'];
                                                         $booking_id = $t1['booking_id'];
                                                         if ($designation == 1) {
-                                                            echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Confirm</button></a>";
+                                                            echo "<a  href=deactivate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-danger'>Click here to Confirm</button></a>";
                                                         } else if ($designation == 0) {
-                                                            echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>waiting for confirmation</button></a>";
+                                                            echo "<a href=activate.php?booking_id=" . $booking_id . "><button type='button' class='btn btn-outline-primary'>Confirmed</button></a>";
                                                         } ?>
                                                 </td>
 
