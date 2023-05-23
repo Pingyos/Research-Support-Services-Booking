@@ -121,7 +121,7 @@ require_once 'head.php';
                 $stmt->close();
                 $mysqli->close();
                 // LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z
-                $sToken = [""];
+                $sToken = ["his5Q7XxUDocSW5Mg3y2EonaC1HPqF6F5WBzlktOWGB"];
                 $sMessage = "Update Booking\r\n";
                 $sMessage .=  $instructor . "\n";
                 $sMessage .= "\n";

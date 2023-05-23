@@ -28,7 +28,7 @@ require_once 'head.php'; ?>
                                     <tbody>
                                         <?php
                                         require_once 'connect.php';
-                                        $stmt = $conn->prepare("SELECT * FROM bookingall WHERE instructor = 'Mr-Michael-Cote'");
+                                        $stmt = $conn->prepare("SELECT * FROM bookingall WHERE instructor = 'Dr-Patompong-Khaw-on'");
                                         $stmt->execute();
                                         $result = $stmt->fetchAll();
                                         $countrow = 1;

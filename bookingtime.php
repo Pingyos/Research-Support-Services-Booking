@@ -277,7 +277,6 @@ require_once 'head.php';
                                     <input readonly type="email" name="email" class="form-control" value="<?php echo $json['cmuitaccount']; ?>">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Tel</table>
@@ -294,14 +293,14 @@ require_once 'head.php';
                             </div>
                         </form>
                     </div>
-                    <!-- <?php echo '<pre>';
-                            print_r($_POST);
-                            echo '</pre>';
-                            ?> -->
                 </div>
             </div>
         </div>
     </div>
+    <?php echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
+    ?>
     <!-- End #main -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
