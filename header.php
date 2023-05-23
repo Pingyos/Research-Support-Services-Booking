@@ -1,15 +1,15 @@
     <!-- ======= Header ======= -->
     <?php
-    // session_start();
-    // if (!isset($_SESSION['login_info'])) {
-    //     header('Location: login.php');
-    //     exit;
-    // }
-    // if (isset($_SESSION['login_info'])) {
-    //     $json = $_SESSION['login_info'];
-    // } else {
-    //     echo "You are not logged in.";
-    // }
+    session_start();
+    if (!isset($_SESSION['login_info'])) {
+        header('Location: login.php');
+        exit;
+    }
+    if (isset($_SESSION['login_info'])) {
+        $json = $_SESSION['login_info'];
+    } else {
+        echo "You are not logged in.";
+    }
     ?>
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">
