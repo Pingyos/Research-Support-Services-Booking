@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-// // Start session
-// session_start();
-
-// // Check if login information is available in session variable
-// if (isset($_SESSION['login_info'])) {
-//     $json = $_SESSION['login_info'];
-
-//     // Display login information
-//     // echo "Name:" . $json['firstname_EN'] . "<br>";
-//     // echo "Surname:" . $json['lastname_EN'] . "<br>";
-//     // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-//     // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
-// } else {
-//     echo "You are not logged in.";
-// }
-
+session_start();
+if (!isset($_SESSION['login_info'])) {
+    header('Location: login.php');
+    exit;
+}
+if (isset($_SESSION['login_info'])) {
+    $json = $_SESSION['login_info'];
+} else {
+    echo "You are not logged in.";
+}
 require_once 'head.php';
 ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -32,7 +26,7 @@ require_once 'head.php';
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'booking');
+    require_once 'connnect.php';
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
         $stmt = $mysqli->prepare("select * from booking where date = ?");
@@ -79,7 +73,7 @@ require_once 'head.php';
                   </script>';
             } else {
                 // First database (booking)
-                $mysqli = new mysqli('localhost', 'root', '', 'booking');
+                require_once 'connnect.php';
                 $mysqli->set_charset('utf8');
                 $stmt = $mysqli->prepare("INSERT INTO booking (name,title,option_add,timeslot,email,tel,date,service,status,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                 $stmt->bind_param('sssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $date, $service, $status, $instructor, $manutitle);
@@ -290,8 +284,8 @@ require_once 'head.php';
                                     <input required type="text" name="tel" class="form-control">
                                 </div>
                             </div>
-                            <input required type="text" name="service" value="Choose service" class="form-control" hidden>
-                            <input required type="text" name="status" value="Waiting for confirmation" class="form-control" hidden>
+                            <input required type="text" name="service" value="-" class="form-control" hidden>
+                            <input required type="text" name="status" value="-" class="form-control" hidden>
 
 
                             <div class="modal-footer">

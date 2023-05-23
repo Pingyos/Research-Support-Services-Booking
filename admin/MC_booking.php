@@ -57,7 +57,7 @@ require_once 'head.php'; ?>
                                                         <div class="modal-body">
                                                             <div class="card-body">
                                                                 <div class="card-title">
-                                                                    <h3 class="text-center">University</h3>
+                                                                    <h3 class="text-center">Details</h3>
                                                                 </div>
                                                                 <hr>
                                                                 <form method="post" enctype="multipart/form-data">
@@ -71,14 +71,20 @@ require_once 'head.php'; ?>
                                                                         </div>
                                                                         <div class="col-6">
                                                                             <div class="form-group">
-                                                                                <label for="title">Service Type</label>
-                                                                                <input type="text" name="title" value="<?= $t1['title']; ?>" class="form-control" readonly>
+                                                                                <label for="date">Date</label>
+                                                                                <input type="text" name="date" class="form-control" value="<?= $t1['date']; ?>" readonly>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6">
                                                                             <div class="form-group">
-                                                                                <label for="timeslot">Date</label>
+                                                                                <label for="timeslot">Time </label>
                                                                                 <input type="text" name="timeslot" class="form-control" value="<?= $t1['timeslot']; ?>" readonly>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <div class="form-group">
+                                                                                <label for="title">Service Type</label>
+                                                                                <input type="text" name="title" value="<?= $t1['title']; ?>" class="form-control" readonly>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6">
@@ -105,7 +111,7 @@ require_once 'head.php'; ?>
                                                                                 <input type="text" name="tel" value="<?= $t1['tel']; ?>" class="form-control" readonly>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-12">
+                                                                        <div class="col-6">
                                                                             <div class="form-group">
                                                                                 <label for="instructor">Instructor</label>
                                                                                 <input type="text" name="instructor" value="<?= $t1['instructor']; ?>" class="form-control" readonly>
@@ -132,12 +138,12 @@ require_once 'head.php'; ?>
                                                                     </div>
                                                                     <div>
                                                                         <button type="submit" class="btn btn-success btn-block">
-                                                                            <span type="submit">Submit</span>
+                                                                            <span type="submit">Confirm</span>
                                                                         </button>
-                                                                        <?php echo '<pre>';
-                                                                        print_r($_POST);
-                                                                        echo '</pre>';
-                                                                        ?>
+                                                                        <!-- <?php echo '<pre>';
+                                                                                print_r($_POST);
+                                                                                echo '</pre>';
+                                                                                ?> -->
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -157,7 +163,6 @@ require_once 'head.php'; ?>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
     </div>
 
 

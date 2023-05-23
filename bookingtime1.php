@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-// // Start session
-// session_start();
-
-// // Check if login information is available in session variable
-// if (isset($_SESSION['login_info'])) {
-//     $json = $_SESSION['login_info'];
-
-//     // Display login information
-//     // echo "Name:" . $json['firstname_EN'] . "<br>";
-//     // echo "Surname:" . $json['lastname_EN'] . "<br>";
-//     // echo "organisation:" . $json['organization_name_EN'] . "<br>";
-//     // echo "cmuitaccount:" . $json['cmuitaccount'] . "<br>";
-// } else {
-//     echo "You are not logged in.";
-// }
+session_start();
+if (!isset($_SESSION['login_info'])) {
+    header('Location: login.php');
+    exit;
+}
+if (isset($_SESSION['login_info'])) {
+    $json = $_SESSION['login_info'];
+} else {
+    echo "You are not logged in.";
+}
 
 require_once 'head.php';
 ?>
@@ -38,7 +33,7 @@ require_once 'head.php';
     <!-- End Hero -->
 
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'booking');
+    require_once 'connnect.php';
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
         $stmt = $mysqli->prepare("select * from booking1 where date = ?");
@@ -63,7 +58,8 @@ require_once 'head.php';
         $email = $_POST['email'];
         $tel = $_POST['tel'];
         $timeslot = $_POST['timeslot'];
-        $designation = $_POST['designation'];
+        $service = $_POST['service'];
+        $status = $_POST['status'];
         $instructor = $_POST['instructor'];
         $manutitle = $_POST['manutitle'];
         $stmt = $mysqli->prepare("select * from booking where date = ? AND timeslot=?");
@@ -83,10 +79,11 @@ require_once 'head.php';
                     });
                   </script>';
             } else {
-                $mysqli = new mysqli('localhost', 'root', '', 'booking');
+                // First database (booking)
+                require_once 'connnect.php';
                 $mysqli->set_charset('utf8');
-                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
-                $stmt->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                $stmt = $mysqli->prepare("INSERT INTO booking1 (name,title,option_add,timeslot,email,tel,date,service,status,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param('sssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $date, $service, $status, $instructor, $manutitle);
                 $stmt->execute();
 
                 // Second database (bookingAll)
@@ -97,13 +94,13 @@ require_once 'head.php';
                     exit();
                 }
 
-                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,designation,date,instructor,manutitle) VALUES (?,?,?,?,?,?,?, ?,?,?)");
+                $stmt2 = $mysqli2->prepare("INSERT INTO bookingall (name,title,option_add,timeslot,email,tel,date,service,status,instructor,manutitle) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                 if (!$stmt2) {
                     echo "Prepare failed: (" . $mysqli2->errno . ") " . $mysqli2->error;
                     exit();
                 }
 
-                $stmt2->bind_param('ssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $designation, $date, $instructor, $manutitle);
+                $stmt2->bind_param('sssssssssss', $name, $title, $option_add, $timeslot, $email, $tel, $date, $service, $status, $instructor, $manutitle);
                 if (!$stmt2->execute()) {
                     echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
                     exit();
@@ -243,7 +240,7 @@ require_once 'head.php';
                                 </div>
                             </div>
                             <div class="form-group">
-                                <table for="">ResearchTitle</table>
+                                <table for="">Manuscript Title</table>
                                 <input required type="text" name="manutitle" class="form-control">
                             </div>
                             <input required type="text" name="instructor" value="Dr-Patompong-Khaw-on" class="form-control" hidden>
@@ -269,15 +266,15 @@ require_once 'head.php';
                                     <input readonly type="email" name="email" class="form-control" value="<?php echo $json['cmuitaccount']; ?>">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="mb-2">
                                     <table for="">Tel</table>
                                     <input required type="text" name="tel" class="form-control">
                                 </div>
                             </div>
-
-
-                            <input required type="text" name="designation" value="1" class="form-control" hidden>
+                            <input required type="text" name="service" value="-" class="form-control" hidden>
+                            <input required type="text" name="status" value="-" class="form-control" hidden>
 
 
                             <div class="modal-footer">
@@ -286,6 +283,10 @@ require_once 'head.php';
                             </div>
                         </form>
                     </div>
+                    <!-- <?php echo '<pre>';
+                            print_r($_POST);
+                            echo '</pre>';
+                            ?> -->
                 </div>
             </div>
         </div>
