@@ -2,16 +2,16 @@
 <html lang="en">
 
 <?php
-session_start();
-if (!isset($_SESSION['login_info'])) {
-    header('Location: login.php');
-    exit;
-}
-if (isset($_SESSION['login_info'])) {
-    $json = $_SESSION['login_info'];
-} else {
-    echo "You are not logged in.";
-}
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+// } else {
+//     echo "You are not logged in.";
+// }
 
 require_once 'head.php';
 ?>
@@ -36,11 +36,13 @@ require_once 'head.php';
                     <tr>
                         <th>#</th>
                         <th>Service Type</th>
-                        <th>Title</th>
                         <th>Date</th>
+                        <th>Time</th>
                         <th>Meeting Option</th>
-                        <th>Details</th>
+                        <th>Meeting Status</th>
                         <th>Status</th>
+                        <th>Details</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -56,37 +58,13 @@ require_once 'head.php';
                         <tr>
                             <td><?= $countrow ?></td>
                             <td><?= $t1['title']; ?></td>
-                            <td><?= $t1['manutitle']; ?></td>
-                            <td><?= $t1['timeslot']; ?>/<?= $t1['date']; ?></td>
-                            <td><?= $t1['option_add']; ?>
-
-                                <?php
-                                $designation = $t1['designation'];
-                                $option_add = $t1['option_add'];
-                                $booking_id = $t1['booking_id'];
-
-                                if ($designation == 1 && ($option_add != "Zoom-meeting")) {
-                                    echo "-";
-                                } else if ($designation == 1 && ($option_add == "Zoom-meeting")) {
-                                    echo "-";
-                                } else if ($designation == 0 && ($option_add != "Zoom-meeting")) {
-                                    echo "Room-2223";
-                                } else if ($designation == 0 && ($option_add == "Zoom-meeting")) {
-                                    echo "ID-81859956261";
-                                } ?>
-                            </td>
+                            <td><?= $t1['date']; ?></td>
+                            <td><?= $t1['timeslot']; ?></td>
+                            <td><?= $t1['option_add']; ?></td>
+                            <td><?= $t1['service']; ?></td>
+                            <td><?= $t1['status']; ?></td>
                             <td>
-                                <button <a href="?booking_id=<?= $t1['booking_id']; ?>" type="button" class="btn btn-outline-success book" data-timeslot="<?= $t1['timeslot'] ?>">View</button>
-                            </td>
-                            <td>
-                                <?php
-                                $designation = $t1['designation'];
-                                $booking_id = $t1['booking_id'];
-                                if ($designation == 1) {
-                                    echo "<button type='button' class='btn btn-outline-danger'>waiting for confirmation</button></a>";
-                                } else if ($designation == 0) {
-                                    echo "<button type='button' class='btn btn-outline-primary'>booking confirmation</button></a>";
-                                } ?>
+                                <button href="?booking_id=<?= $t1['booking_id']; ?>" type="button" class="btn btn-outline-success book" data-timeslot="<?= $t1['timeslot'] ?>">View</button>
                             </td>
                         </tr>
                     <?php $countrow++;
@@ -103,45 +81,62 @@ require_once 'head.php';
                         </div>
                         <div class="modal-body">
                             <div class="col-md-12">
-                                <form action="" method="post">
-                                    <div class="form-group">
-                                        <div class="mb-2">
-                                            <table for="">Date</table>
-                                            <input type="text" readonly name="timeslot" id="timeslot" class="form-control">
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <input type="hidden" name="booking_id" value="<?= $t1['booking_id']; ?>">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="manutitle">Research Title</label>
+                                                <input type="text" name="manutitle" value="<?= $t1['manutitle']; ?>" class="form-control" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mb-2">
-                                            <table for="">Service Type</table>
-                                            <input required type="text" name="tel" value="<?= $t1['title']; ?>" class="form-control" readonly>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="date">Date</label>
+                                                <input type="text" name="date" class="form-control" value="<?= $t1['date']; ?>" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <table for="">ResearchTitle</table>
-                                        <input type="text" name="manutitle" value="<?= $t1['manutitle']; ?>" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mb-2">
-                                            <table for="">Meeting Option</table>
-                                            <input required type="text" name="tel" value="<?= $t1['option_add']; ?>" class="form-control" readonly>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="timeslot">Time </label>
+                                                <input type="text" name="timeslot" class="form-control" value="<?= $t1['timeslot']; ?>" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mb-2">
-                                            <table for="">Name</table>
-                                            <input readonly type="text" name="name" value="<?= $t1['name']; ?>" class="form-control" readonly>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="title">Service Type</label>
+                                                <input type="text" name="title" value="<?= $t1['title']; ?>" class="form-control" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mb-2">
-                                            <label for="">Email</label>
-                                            <input readonly type="email" name="email" class="form-control" value="<?= $t1['email']; ?>" readonly>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="option_add">Meeting Option</label>
+                                                <input type="text" name="option_add" value="<?= $t1['option_add']; ?>" class="form-control" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
-                                        <div class="mb-2">
-                                            <table for="">Tel</table>
-                                            <input required type="text" name="tel" value="<?= $t1['tel']; ?>" class="form-control" readonly>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" name="name" value="<?= $t1['name']; ?>" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" value="<?= $t1['email']; ?>" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="tel">Tel</label>
+                                                <input type="text" name="tel" value="<?= $t1['tel']; ?>" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="instructor">Instructor</label>
+                                                <input type="text" name="instructor" value="<?= $t1['instructor']; ?>" class="form-control" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

@@ -17,5 +17,5 @@ if ($mysqli->connect_errno) {
 $mysqli->set_charset('utf8');
 
 // Connection successful
-echo "Connected to MySQL database successfully!";
+// echo "Connected to MySQL database successfully!";
 ?>
