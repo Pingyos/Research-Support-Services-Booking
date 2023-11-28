@@ -1,28 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['login_info'])) {
-    header('Location: ../user/login.php');
-    exit;
-}
-require_once 'connect.php';
-
-$json = $_SESSION['login_info'];
-$email = $json['cmuitaccount'];
-
-$sql = "SELECT COUNT(*) AS count FROM cmuitaccount WHERE cmuitaccount = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$count = $row['count'];
-if ($count === 0) {
-    header('Location: ../user/login.php');
-    exit;
-}
-
-?>
-
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -40,29 +15,29 @@ if ($count === 0) {
                         <div class="row">
                             <div class="col-md-12 col-lg-4 col-xl-12 order-0 mb-4">
                                 <?php
-                                $sql = "SELECT title1, title2, title3 FROM cmuitaccount WHERE cmuitaccount = ?";
-                                $stmt = $mysqli->prepare($sql);
-                                $stmt->bind_param("s", $email);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                if ($result->num_rows > 0) {
-                                    $row = $result->fetch_assoc();
-                                    $title1 = $row['title1'];
-                                    $title2 = $row['title2'];
-                                    $title3 = $row['title3'];
-                                } else {
-                                    header('Location: ../user/login.php?error=user_not_found');
-                                    exit;
-                                }
+                                // $sql = "SELECT title1, title2, title3 FROM cmuitaccount WHERE cmuitaccount = ?";
+                                // $stmt = $mysqli->prepare($sql);
+                                // $stmt->bind_param("s", $email);
+                                // $stmt->execute();
+                                // $result = $stmt->get_result();
+                                // if ($result->num_rows > 0) {
+                                //     $row = $result->fetch_assoc();
+                                //     $title1 = $row['title1'];
+                                //     $title2 = $row['title2'];
+                                //     $title3 = $row['title3'];
+                                // } else {
+                                //     header('Location: ../user/login.php?error=user_not_found');
+                                //     exit;
+                                // }
                                 ?>
                                 <div class="card h-100">
                                     <?php
                                     require_once 'connect.php';
                                     $itemsPerPage = 9;
 
-                                    $searchTitle1 = $row['title1'];
-                                    $searchTitle2 = $row['title2'];
-                                    $searchTitle3 = $row['title3'];
+                                    $searchTitle1 = "Editor English Hours";
+                                    $searchTitle2 = "Research Consult";
+                                    $searchTitle3 = "Statistic Consult";
 
                                     // คำนวณจำนวนข้อมูลทั้งหมด
                                     $stmtCount = $mysqli->prepare("SELECT COUNT(*) FROM booking WHERE title = ? OR title = ? OR title = ?");

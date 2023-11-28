@@ -43,7 +43,8 @@ if (
 
   if ($result1) {
     // รหัสสำหรับการแจ้งเตือนผ่าน Line Notify
-    $sToken = ["LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z"];
+    // LN8KPFOSBCYWrDpZThezFPSo76uK0atqX8slQFbLJ2z
+    $sToken = ["6GxKHxqMlBcaPv1ufWmDiJNDucPJSWPQ42sJwPOsQQL"];
     $sMessage = "New Booking !\r\n";
     $sMessage .= "\n";
     $sMessage .= "Booking Id: " . $booking_id . "\n";
