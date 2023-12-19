@@ -1,3 +1,15 @@
+<?php
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+// } else {
+//     echo "You are not logged in.";
+// }
+?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -159,72 +171,8 @@
                                                                         </button>
                                                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                                                     </div>
-                                                                    <!-- fomr email -->
-                                                                    <div class="col-lg-12 col-md-6 col-12 mb-2" style="display: none;">
-                                                                        <label for="header" class="form-label">header</label>
-                                                                        <div class="input-group input-group-merge">
-                                                                            <span id="basic-icon-default-fullname2" class="input-group-text"></i></span>
-                                                                            <input type="text" name="header" id="header" class="form-control" value="NRC: New Booking  <?php echo $title; ?>" />
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-lg-12 col-md-6 col-12 mb-2" style="display: none;">
-                                                                        <label class="form-label" for="basic-icon-default-message">detail</label>
-                                                                        <div class="input-group input-group-merge">
-                                                                            <span id="basic-icon-default-message2" class="input-group-text"></span>
-                                                                            <textarea id="detail" name="detail" class="form-control">
-                                                                                Dear <?php echo $json['firstname_EN'] . ' ' . $json['lastname_EN']; ?><br>
-                                                                                
-                                                                                The Nursing Research Center (NRC) online submission system has received a submission for booking for Research Consult Service the following Booking <br>
-                                                                                <hr>
-                                                                                Please wait for confirmation from the research consultant or the English editor within 24 hours.<br>
-
-                                                                                Thank you for using the NRC consultation service. Please do not hesitate to contact us with any questions or concerns.<br>
-                                                                                <hr>
-                                                                                Sincerely,<br>
-                                                                                Nursing Research Center (NRC)<br>
-                                                                                Faculty of Nursing, Chiang Mai University<br>
-                                                                                Should you have any queries, please contact us.<br>
-                                                                                Tel.: 053-935033<br>
-                                                                            </textarea>
-                                                                        </div>
-                                                                    </div>
-
                                                                     <input type="hidden" name="status_user" id="status_user" class="form-control" value="pending" readonly />
-                                                                    <script type="text/javascript">
-                                                                        function sendEmail() {
-                                                                            var name = $("#name");
-                                                                            var email = $("#email");
-                                                                            var header = $("#header");
-                                                                            var detail = $("#detail");
 
-                                                                            if (isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(header) && isNotEmpty(detail)) {
-                                                                                $.ajax({
-                                                                                    url: 'sendEmail.php',
-                                                                                    method: 'POST',
-                                                                                    dataType: 'json',
-                                                                                    data: {
-                                                                                        name: name.val(),
-                                                                                        email: email.val(),
-                                                                                        header: header.val(),
-                                                                                        detail: detail.val()
-                                                                                    },
-                                                                                    success: function(response) {
-                                                                                        $('.msg').text("");
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        }
-
-                                                                        function isNotEmpty(caller) {
-                                                                            if (caller.val() == "") {
-                                                                                caller.css('border', '1px solid red');
-                                                                                return false;
-                                                                            } else caller.css('border', '');
-
-                                                                            return true;
-                                                                        }
-                                                                    </script>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -248,7 +196,6 @@
                                             <?php
                                             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 require_once 'bookingtime_t2_db.php';
-                                                require_once 'sendEmail.php';
                                                 // echo '<pre>';
                                                 // print_r($_POST);
                                                 // echo '</pre>';

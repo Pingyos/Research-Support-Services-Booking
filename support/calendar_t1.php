@@ -1,3 +1,15 @@
+<?php
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+// } else {
+//     echo "You are not logged in.";
+// }
+?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -54,31 +66,31 @@
                                                             padding-left: 50%;
                                                         }
 
-                                                        td:nth-of-type(1):before {
+                                                        td:nth-of-type(0):before {
                                                             content: "Sunday";
                                                         }
 
-                                                        td:nth-of-type(2):before {
+                                                        td:nth-of-type(1):before {
                                                             content: "Monday";
                                                         }
 
-                                                        td:nth-of-type(3):before {
+                                                        td:nth-of-type(2):before {
                                                             content: "Tuesday";
                                                         }
 
-                                                        td:nth-of-type(4):before {
+                                                        td:nth-of-type(3):before {
                                                             content: "Wednesday";
                                                         }
 
-                                                        td:nth-of-type(5):before {
+                                                        td:nth-of-type(4):before {
                                                             content: "Thursday";
                                                         }
 
-                                                        td:nth-of-type(6):before {
+                                                        td:nth-of-type(5):before {
                                                             content: "Friday";
                                                         }
 
-                                                        td:nth-of-type(7):before {
+                                                        td:nth-of-type(6):before {
                                                             content: "Saturday";
                                                         }
                                                     }

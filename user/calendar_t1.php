@@ -1,3 +1,15 @@
+<?php
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+// } else {
+//     echo "You are not logged in.";
+// }
+?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -18,7 +30,7 @@
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-12">
                                             <div class="card-body">
-                                                <style>
+                                            <style>
                                                     @media only screen and (max-width: 760px),
                                                     (min-device-width: 802px) and (max-device-width: 1020px) {
 
@@ -92,9 +104,10 @@
                                                     $month = $dateComponents['mon'];
                                                     $year = $dateComponents['year'];
                                                 }
-                                                echo build_calendar($month, $year);
+                                                $day = isset($_GET['day']) ? $_GET['day'] : $dateComponents['mday'];
+                                                echo build_calendar($month, $year, $day);
 
-                                                function build_calendar($month, $year)
+                                                function build_calendar($month, $year, $day)
                                                 {
                                                     require_once 'connect.php';
                                                     $daysOfWeek = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
@@ -121,7 +134,7 @@
                                                     foreach ($daysOfWeek as $day) {
                                                         $calendar .= "<th class='header'>$day</th>";
                                                     }
-                                                    $currentDay = 1;
+                                                    $currentDayLoop = 1;
                                                     $calendar .= "</tr><tr>";
                                                     if ($dayOfWeek > 0) {
                                                         for ($k = 0; $k < $dayOfWeek; $k++) {
@@ -131,13 +144,13 @@
 
                                                     $month = str_pad($month, 2, "0", STR_PAD_LEFT);
 
-                                                    while ($currentDay <= $numberDays) {
+                                                    while ($currentDayLoop <= $numberDays) {
                                                         if ($dayOfWeek == 7) {
                                                             $dayOfWeek = 0;
                                                             $calendar .= "</tr><tr>";
                                                         }
 
-                                                        $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
+                                                        $currentDayRel = str_pad($currentDayLoop, 2, "0", STR_PAD_LEFT);
                                                         $date = "$year-$month-$currentDayRel";
 
                                                         $dayname = strtolower(date('l', strtotime($date)));
@@ -146,23 +159,23 @@
                                                         $todayStyle = $today ? "background-color: #dee0e6;" : "";
 
                                                         if ($dayname == 'sunday' || $dayname == 'monday' || $dayname == 'tuesday' || $dayname == 'friday' || $dayname == 'saturday') {
-                                                            $calendar .= "<td style='$todayStyle'><h4>$currentDay</h4> <button class='col-12 btn btn-secondary'>Unavailable</button>";
+                                                            $calendar .= "<td style='$todayStyle'><h4>$currentDayLoop</h4> <button class='col-12 btn btn-secondary'>Unavailable</button>";
                                                         } elseif ($date < date('Y-m-d')) {
-                                                            $calendar .= "<td style='$todayStyle'><h4>$currentDay</h4> <button class='col-12 btn btn-warning'>Pass</button>";
+                                                            $calendar .= "<td style='$todayStyle'><h4>$currentDayLoop</h4> <button class='col-12 btn btn-warning'>Pass</button>";
                                                         } else {
                                                             $totalbookings = checkSlots($mysqli, $date);
                                                             if ($totalbookings == 6) {
-                                                                $calendar .= "<td class='$today' style='$todayStyle'><h4>$currentDay</h4> <a href='#' class='btn btn-primary'>Booking Full</a>";
+                                                                $calendar .= "<td class='$today' style='$todayStyle'><h4>$currentDayLoop</h4> <a href='#' class='btn btn-primary'>Booking Full</a>";
                                                             } else {
                                                                 $availableslots = 6 - $totalbookings;
                                                                 $titleParam = isset($_GET['title']) ? "&title=" . urlencode($_GET['title']) : "";
                                                                 $bookingLink = "bookingtime_t1.php?date=" . $date . $titleParam;
-                                                                $calendar .= "<td class='$today' style='$todayStyle'><h4>$currentDay</h4><a> $availableslots slots</a><a href='$bookingLink' class='col-12 btn btn-success'>Available times</a>";
+                                                                $calendar .= "<td class='$today' style='$todayStyle'><h4>$currentDayLoop</h4><a> $availableslots slots</a><a href='$bookingLink' class='col-12 btn btn-success'>Available times</a>";
                                                             }
                                                         }
 
                                                         $calendar .= "</td>";
-                                                        $currentDay++;
+                                                        $currentDayLoop++;
                                                         $dayOfWeek++;
                                                     }
 

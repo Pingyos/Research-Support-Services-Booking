@@ -1,3 +1,33 @@
+<?php
+// session_cache_limiter("nocache");
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+
+// require_once 'connect.php';
+
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+//     $cmuitaccount = $json['cmuitaccount'];
+//     $insertStmt = $mysqli->prepare("INSERT INTO log_user (cmuitaccount, login_time) VALUES (?, NOW())");
+//     $insertStmt->bind_param("s", $cmuitaccount);
+//     $insertStmt->execute();
+//     $insertStmt->close();
+//     $stmt = $mysqli->prepare("SELECT * FROM cmuitaccount WHERE cmuitaccount = ?");
+//     $stmt->bind_param("s", $cmuitaccount);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     if ($result->num_rows > 0) {
+//         header("Location: https://app.nurse.cmu.ac.th/booking/support/index.php");
+//         exit;
+//     }
+// }
+?>
+
+
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -19,8 +49,10 @@
                                         <div class="col-sm-12">
                                             <div class="card-body">
                                                 <div style="text-align: center;">
-                                                    <h4>Choose a service that you need and schedule an appointment time.</h4>
+                                                    <h4>system is currently being updated</h4>
+                                                    <!-- <h4>Choose a service that you need and schedule an appointment time.</h4> -->
                                                 </div>
+
                                                 <div class="row">
                                                     <div class="col-lg-4 mb-4 order-0">
                                                         <div class="card">

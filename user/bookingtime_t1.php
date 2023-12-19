@@ -1,3 +1,15 @@
+<?php
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: login.php');
+//     exit;
+// }
+// if (isset($_SESSION['login_info'])) {
+//     $json = $_SESSION['login_info'];
+// } else {
+//     echo "You are not logged in.";
+// }
+?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -102,7 +114,7 @@
                                                             <h5 class="modal-title" id="exampleModalLabel4">Booking</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <form method="POST">
+                                                        <form method="POST" id="bookingForm">
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     <div class="col-lg-6 col-md-6 col-12 mb-2">
@@ -130,16 +142,14 @@
                                                                         <label for="name" class="form-label">FullName</label>
                                                                         <div class="input-group input-group-merge">
                                                                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
-                                                                            <input type="text" name="name" id="name" class="form-control" value="" readonly />
-                                                                            <!-- <input type="text" name="name" id="name" class="form-control" value="<?php echo $json['firstname_EN'] . ' ' . $json['lastname_EN']; ?>" readonly /> -->
+                                                                            <input type="text" name="name" id="name" class="form-control" value="<?php echo $json['firstname_EN'] . ' ' . $json['lastname_EN']; ?>" readonly />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-6 col-md-6 col-12 mb-2">
                                                                         <label for="email" class="form-label">Email</label>
                                                                         <div class="input-group input-group-merge">
                                                                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                                            <input type="text" name="email" id="email" class="form-control" value="" readonly />
-                                                                            <!-- <input type="text" name="email" id="email" class="form-control" value="<?php echo $json['cmuitaccount']; ?>" readonly /> -->
+                                                                            <input type="text" name="email" id="email" class="form-control" value="<?php echo $json['cmuitaccount']; ?>" readonly />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-6 col-md-6 col-12 mb-2">
@@ -179,7 +189,6 @@
                                                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                                                     </div>
                                                                     <input type="hidden" name="status_user" id="status_user" class="form-control" value="pending" readonly />
-
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -197,14 +206,15 @@
                                                             });
                                                         });
                                                     </script>
+
                                                 </div>
                                             </div>
                                             <?php
                                             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 require_once 'bookingtime_t1_db.php';
-                                                echo '<pre>';
-                                                print_r($_POST);
-                                                echo '</pre>';
+                                                // echo '<pre>';
+                                                // print_r($_POST);
+                                                // echo '</pre>';
                                             }
                                             ?>
                                         </div>

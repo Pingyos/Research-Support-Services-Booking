@@ -1,3 +1,28 @@
+<?php
+// session_start();
+// if (!isset($_SESSION['login_info'])) {
+//     header('Location: ../user/login.php');
+//     exit;
+// }
+// require_once 'connect.php';
+
+// $json = $_SESSION['login_info'];
+// $email = $json['cmuitaccount'];
+
+// $sql = "SELECT COUNT(*) AS count FROM cmuitaccount WHERE cmuitaccount = ?";
+// $stmt = $mysqli->prepare($sql);
+// $stmt->bind_param("s", $email);
+// $stmt->execute();
+// $result = $stmt->get_result();
+// $row = $result->fetch_assoc();
+// $count = $row['count'];
+// if ($count === 0) {
+//     header('Location: ../user/login.php');
+//     exit;
+// }
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -15,29 +40,29 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-4 col-xl-12 order-0 mb-4">
                                 <?php
-                                // $sql = "SELECT title1, title2, title3 FROM cmuitaccount WHERE cmuitaccount = ?";
-                                // $stmt = $mysqli->prepare($sql);
-                                // $stmt->bind_param("s", $email);
-                                // $stmt->execute();
-                                // $result = $stmt->get_result();
-                                // if ($result->num_rows > 0) {
-                                //     $row = $result->fetch_assoc();
-                                //     $title1 = $row['title1'];
-                                //     $title2 = $row['title2'];
-                                //     $title3 = $row['title3'];
-                                // } else {
-                                //     header('Location: ../user/login.php?error=user_not_found');
-                                //     exit;
-                                // }
+                                $sql = "SELECT title1, title2, title3 FROM cmuitaccount WHERE cmuitaccount = ?";
+                                $stmt = $mysqli->prepare($sql);
+                                $stmt->bind_param("s", $email);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                if ($result->num_rows > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $title1 = $row['title1'];
+                                    $title2 = $row['title2'];
+                                    $title3 = $row['title3'];
+                                } else {
+                                    header('Location: ../user/login.php?error=user_not_found');
+                                    exit;
+                                }
                                 ?>
                                 <div class="card h-100">
                                     <?php
                                     require_once 'connect.php';
                                     $itemsPerPage = 9;
 
-                                    $searchTitle1 = "Editor English Hours";
-                                    $searchTitle2 = "Research Consult";
-                                    $searchTitle3 = "Statistic Consult";
+                                    $searchTitle1 = $row['title1'];
+                                    $searchTitle2 = $row['title2'];
+                                    $searchTitle3 = $row['title3'];
 
                                     // คำนวณจำนวนข้อมูลทั้งหมด
                                     $stmtCount = $mysqli->prepare("SELECT COUNT(*) FROM booking WHERE title = ? OR title = ? OR title = ?");
@@ -274,75 +299,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12 col-md-6 col-12 mb-2" style="display: none;">
-                                                                <label for="header" class="form-label">header</label>
-                                                                <div class="input-group input-group-merge">
-                                                                    <span id="basic-icon-default-fullname2" class="input-group-text"></i></span>
-                                                                    <input type="text" name="header" id="header" class="form-control" value="NRC: Confirmed Booking <?= $t1['booking_id']; ?> | <?= $t1['title']; ?>" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12 col-md-6 col-12 mb-2" style="display: none;">
-                                                                <label class="form-label" for="basic-icon-default-message">detail</label>
-                                                                <div class="input-group input-group-merge">
-                                                                    <span id="basic-icon-default-message2" class="input-group-text"></span>
-                                                                    <textarea id="detail" name="detail" class="form-control">
-                                                                            Dear <?= $t1['name']; ?><br>
-                                                                            The Nursing Research Center (NRC) online submission system has confirmed the following booking:<br>
-                                                                            <hr>
-                                                                            Booking Id: <?= $t1['booking_id']; ?><br>
-                                                                            Date: <?= $t1['date']; ?><br>
-                                                                            Time: <?= $t1['timeslot']; ?><br>
-                                                                            Service Type: <?= $t1['title']; ?><br>
-                                                                            <?= $t1['meeting']; ?>: <?= $t1['service']; ?><br>
-                                                                            <hr>
-                                                                            Thank you for using the NRC consultation service. Please do not hesitate to contact us with any questions or concerns.<br>
-                                                                            <br>
-                                                                            Sincerely,<br>
-                                                                            Nursing Research Center (NRC)<br>
-                                                                            Faculty of Nursing, Chiang Mai University<br>
-                                                                            Should you have any queries, please contact us.<br>
-                                                                            Tel.: 053-935033<br>
-                                                                        </textarea>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" name="name" id="name" class="form-control" value="<?= $t1['name']; ?>" readonly />
-                                                            <input type="hidden" name="email" id="email" class="form-control" value="<?= $t1['email']; ?>" readonly />
                                                             <input type="hidden" name="id" value="<?= $t1['id']; ?>">
                                                             <input type="hidden" name="dateCreate" value="<?= date('Y-m-d H:i:s'); ?>">
-                                                            <script type="text/javascript">
-                                                                function sendEmail() {
-                                                                    var name = $("#name");
-                                                                    var email = $("#email");
-                                                                    var header = $("#header");
-                                                                    var detail = $("#detail");
 
-                                                                    if (isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(header) && isNotEmpty(detail)) {
-                                                                        $.ajax({
-                                                                            url: 'sendEmail.php',
-                                                                            method: 'POST',
-                                                                            dataType: 'json',
-                                                                            data: {
-                                                                                name: name.val(),
-                                                                                email: email.val(),
-                                                                                header: header.val(),
-                                                                                detail: detail.val()
-                                                                            },
-                                                                            success: function(response) {
-                                                                                $('.msg').text("Message send successfully");
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }
-
-                                                                function isNotEmpty(caller) {
-                                                                    if (caller.val() == "") {
-                                                                        caller.css('border', '1px solid red');
-                                                                        return false;
-                                                                    } else caller.css('border', '');
-
-                                                                    return true;
-                                                                }
-                                                            </script>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                                                     Close
@@ -353,11 +312,19 @@
                                                     </div>
                                                     <?php
                                                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                                        require_once 'index-db.php';
-                                                        require_once 'sendEmail.php';
-                                                        // echo '<pre>';
-                                                        // print_r($_POST);
-                                                        // echo '</pre>';
+                                                        if (isset($_POST['status_user'])) {
+                                                            $status_user = $_POST['status_user'];
+
+                                                            if ($status_user == 'confirmed') {
+                                                                require_once 'index-db.php';
+                                                            } elseif ($status_user == 'cancel') {
+                                                                require_once 'index-cal.php';
+                                                            }
+
+                                                            // echo '<pre>';
+                                                            // print_r($_POST);
+                                                            // echo '</pre>';
+                                                        }
                                                     }
                                                     ?>
                                                 </div>
@@ -400,69 +367,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <input type="hidden" name="service" class="form-control" value="" />
-                                                                <div class="col-lg-12 col-md-6 col-12 mb-2" style="display: none;">
-                                                                    <label class="form-label" for="basic-icon-default-message">detail</label>
-                                                                    <div class="input-group input-group-merge">
-                                                                        <span id="basic-icon-default-message2" class="input-group-text"></span>
-                                                                        <textarea id="detail" name="detail" class="form-control">
-                                                                        Dear <?= $t1['name']; ?><br>
-                                                                        The Nursing Research Center (NRC) online submission system regrets to inform you that the following booking has been cancelled:<br>
-                                                                        <hr>
-                                                                        Booking Id: <?= $t1['booking_id']; ?><br>
-                                                                        Date: <?= $t1['date']; ?><br>
-                                                                        Time: <?= $t1['timeslot']; ?><br>
-                                                                        Service <?= $t1['title']; ?><br>
-                                                                        Status: canceled<br>
-                                                                        Please book a new date/time at https://app.nurse.cmu.ac.th/booking<br>
-                                                                        <hr>
-                                                                        Thank you for using the NRC consultation service. Please do not hesitate to contact us with any questions or concerns.<br>
-                                                                        Sincerely,<br>
-                                                                        Nursing Research Center (NRC)<br>
-                                                                        Faculty of Nursing, Chiang Mai University<br>
-                                                                        Should you have any queries, please contact us.<br>
-                                                                        Tel.: 053-935033<br>
-
-                                                                        </textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="hidden" name="name" id="name" class="form-control" value="<?= $t1['name']; ?>" readonly />
-                                                                <input type="hidden" name="email" id="email" class="form-control" value="<?= $t1['email']; ?>" readonly />
                                                                 <input type="hidden" name="id" value="<?= $t1['id']; ?>">
                                                                 <input type="hidden" name="dateCreate" value="<?= date('Y-m-d H:i:s'); ?>">
-                                                                <script type="text/javascript">
-                                                                    function sendEmail() {
-                                                                        var name = $("#name");
-                                                                        var email = $("#email");
-                                                                        var header = $("#header");
-                                                                        var detail = $("#detail");
 
-                                                                        if (isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(header) && isNotEmpty(detail)) {
-                                                                            $.ajax({
-                                                                                url: 'sendEmail.php',
-                                                                                method: 'POST',
-                                                                                dataType: 'json',
-                                                                                data: {
-                                                                                    name: name.val(),
-                                                                                    email: email.val(),
-                                                                                    header: header.val(),
-                                                                                    detail: detail.val()
-                                                                                },
-                                                                                success: function(response) {
-                                                                                    $('.msg').text("");
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    }
-
-                                                                    function isNotEmpty(caller) {
-                                                                        if (caller.val() == "") {
-                                                                            caller.css('border', '1px solid red');
-                                                                            return false;
-                                                                        } else caller.css('border', '');
-
-                                                                        return true;
-                                                                    }
-                                                                </script>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -471,15 +378,6 @@
                                                                 <button type="submit" class="btn btn-primary">Confirmed</button>
                                                             </div>
                                                         </form>
-                                                        <?php
-                                                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                                            require_once 'index-db.php';
-                                                            require_once 'sendEmail.php';
-                                                            // echo '<pre>';
-                                                            // print_r($_POST);
-                                                            // echo '</pre>';
-                                                        }
-                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
